@@ -231,15 +231,45 @@ axes:
       "4": "Template-like. Seen this 100 times."
       "2": "Pure template. Zero creative input."
 
+  # LUX — Luxury Psychology Conversion (embedded within CON axis for composite;
+  # scored separately for premium-market deliverables only)
+  - id: LUX
+    name: Luxury Psychology Conversion
+    weight: 0.0  # Does not change composite — checklist gate only
+    blocker: false
+    applies_when: "brief targets Affluent, HNW, VHNW, or UHNW audiences"
+    criteria:
+      - Wealth category explicitly identified before execution
+      - A.R.E. formula applied in primary copy (Acknowledge / Relate / Elevate)
+      - Psychology triggers calibrated to correct wealth tier
+      - Language register matches category (luxury transforms applied)
+      - Social proof type matches category signals (volume vs. singular names)
+      - Scarcity mechanism appropriate to tier (absent for UHNW)
+      - Price/investment framing follows price-quality heuristic
+      - CTA language matches category (no generic CTAs for VHNW+)
+      - P.A.S.S.™ structure present in sales copy (Problem / Amplification / Solution / System)
+    scoring:
+      "10": "All 9 checkpoints pass. Copy is psychologically precise."
+      "8": "7-8 checkpoints pass. Minor trigger misalignment."
+      "6": "5-6 checkpoints pass. Some generic copy patterns remain."
+      "4": "< 5 checkpoints pass. Psychology layer largely absent."
+      "2": "No luxury psychology applied. Generic marketing copy."
+    gate:
+      description: "For premium deliverables, LUX < 7.0 triggers soft rejection regardless of composite"
+      action: "BASS rewrites copy with luxury psychology skill before next Lena review"
+
 scoring_rules:
   overall: "Weighted average of all 14 axes"
   pass: "overall >= 8.5 AND no blocker below 7.0"
   fail_soft: "overall < 8.5 → iteration required via Marco synthesis"
   fail_hard: "any blocker axis < 7.0 → full rejection, rebuild required"
-  
+  lux_gate: "For premium-market outputs: LUX < 7.0 → BASS copy revision before delivery"
+
   workflow:
     - "Lena scores all 14 axes for each variation"
+    - "If premium-market brief: Lena also scores LUX axis as checklist"
     - "If fail_hard: reject immediately, specify which blocker failed"
+    - "If LUX < 7.0 on premium brief: route to Bass for copy revision"
     - "If fail_soft: send to Marco for synthesis brief"
     - "If pass: report to Hermes for delivery approval"
     - "All scores logged to audits/ with timestamp"

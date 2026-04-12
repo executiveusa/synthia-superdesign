@@ -13,6 +13,17 @@ Read these files in order:
 4. `studio/index/task-routing.yaml` — How tasks flow to agents
 5. `studio/doctrine/DESIGN_LAWS.md` — The non-negotiable design laws
 
+### Skill Files (read when relevant to your role)
+| Skill | When to Load |
+|-------|-------------|
+| `studio/doctrine/luxury-psychology-SKILL.md` | Any premium-market brief |
+| `studio/doctrine/pass-framework-SKILL.md` | Any copy production task |
+| `studio/doctrine/behavioral-design-laws-SKILL.md` | All frontend work |
+| `studio/doctrine/kupuri-frontend-SKILL.md` | Kupuri/Querencia web work |
+| `studio/doctrine/motion-SKILL.md` | Any animated component |
+| `studio/doctrine/udec-scorer-SKILL.md` | Any scoring task |
+| `studio/doctrine/emerald-tablets-SKILL.md` | Architectural decisions |
+
 ## Step 2: Know Your Role
 
 Every agent has:
@@ -49,6 +60,24 @@ All design work is scored on 14 axes (UDEC Framework):
 | ORI — Originality | 2% | No |
 
 **Floor: 8.5 weighted composite. No exceptions.**
+
+### LUX Gate (Premium-Market Deliverables)
+For briefs targeting Affluent, HNW, VHNW, or UHNW audiences, a supplementary
+**LUX (Luxury Psychology Conversion)** checklist is applied by LENA after standard
+UDEC scoring. LUX < 7.0 routes to BASS for copy revision before delivery.
+
+LUX checklist (9 points):
+1. Wealth category identified before execution
+2. A.R.E. formula applied in primary copy
+3. Psychology triggers calibrated to wealth tier
+4. Language register correct (luxury transforms applied)
+5. Social proof type matches category
+6. Scarcity mechanism appropriate (absent for UHNW)
+7. Price/investment framing correct
+8. CTA language calibrated to category
+9. P.A.S.S.™ structure present in sales copy
+
+See `studio/doctrine/luxury-psychology-SKILL.md` for complete framework.
 
 ## Step 4: Understand the Build Protocol (Karpathy Council)
 
