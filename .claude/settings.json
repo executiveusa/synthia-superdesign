@@ -1,0 +1,13 @@
+{
+  "skillOverrides": {
+    "clone": "on"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npx designlang *)"
+    ]
+  },
+  "env": {
+    "DESIGNLANG_AUTO": "true"
+  }
+}
