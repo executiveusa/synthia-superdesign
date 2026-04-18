@@ -406,13 +406,10 @@ function Capabilities() {
             key={i}
             data-reveal
             data-delay={String((i % 4) + 1)}
+            className="cap-card"
             style={{
-              background: '#0d0f0e',
               padding: '2rem',
-              transition: 'background 200ms ease',
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#131613' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = '#0d0f0e' }}
           >
             <p
               style={{

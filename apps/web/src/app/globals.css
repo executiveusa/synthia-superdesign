@@ -81,6 +81,15 @@ body {
 /* ===== ACCENT BORDER ===== */
 .border-subtle { border-color: var(--color-border); }
 
+/* ===== CAPABILITY CARD HOVER ===== */
+.cap-card {
+  background: var(--color-canvas);
+  transition: background 200ms ease;
+}
+.cap-card:hover {
+  background: var(--color-surface);
+}
+
 /* ===== NOISE TEXTURE ===== */
 .noise-overlay::after {
   content: '';
