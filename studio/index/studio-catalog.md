@@ -16,6 +16,7 @@
 | File | Domain | Status |
 |------|--------|--------|
 | studio/doctrine/DESIGN_LAWS.md | All design | canonical |
+| studio/doctrine/3d-world-SKILL.md | 3D world generation (Lyra pipeline) | canonical |
 | skills/kupuri-frontend/SKILL.md | Frontend design | canonical |
 | skills/design-principles/SKILL.md | Foundational design | canonical |
 | skills/motion/SKILL.md | Motion design | canonical |
