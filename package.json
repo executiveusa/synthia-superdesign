@@ -249,7 +249,9 @@
     "video:lint": "cd studio/video && hyperframes lint",
     "video:render": "cd studio/video && hyperframes render --format mp4 --quality high",
     "video:render-all": "cd studio/video && hyperframes render --all-formats",
-    "video:init": "cd studio/video && hyperframes init"
+    "video:init": "cd studio/video && hyperframes init",
+    "video:research": "node scripts/research-agent.js",
+    "video:produce": "node scripts/produce-agent.js"
   },
   "devDependencies": {
     "@types/mime-types": "^3.0.1",
@@ -276,6 +278,10 @@
     "@hyperframes/producer": "^1.0.0",
     "@hyperframes/shader-transitions": "^1.0.0",
     "@openrouter/ai-sdk-provider": "^0.7.2",
+    "browser-harness": "^1.0.0",
+    "openmontage": "^1.0.0",
+    "puppeteer": "^22.0.0",
+    "replicate": "^0.30.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "ai": "^4.3.16",
