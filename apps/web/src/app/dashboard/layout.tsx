@@ -71,6 +71,17 @@ const NAV = [
       </svg>
     ),
   },
+  {
+    href: '/dashboard/spawn',
+    label: 'Spawn Agent',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M7 4v6M4 7h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
