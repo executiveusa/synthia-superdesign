@@ -24,17 +24,19 @@ const AGENT_CLASSES = [
 ]
 
 const ALL_SKILLS = [
-  '3d-world-SKILL.md',
-  'motion-SKILL.md',
-  'kupuri-frontend-SKILL.md',
-  'design-principles-SKILL.md',
-  'color-psychology-SKILL.md',
-  'brand-SKILL.md',
-  'luxury-psychology-SKILL.md',
-  'pass-framework-SKILL.md',
-  'behavioral-design-laws-SKILL.md',
-  'udec-scorer-SKILL.md',
-  'land-the-plane-SKILL.md',
+  { id: '3d-world-SKILL.md',           label: '3D World Generation',     badge: 'Lyra + HY-WorldPlay',  color: '#6ea87e' },
+  { id: 'hy-worldplay-SKILL.md',        label: 'HY-WorldPlay (Tencent)',  badge: 'HuggingFace',          color: '#6ea87e' },
+  { id: 'seedance-video-SKILL.md',      label: 'Seedance Video',          badge: 'ByteDance / Replicate', color: '#c9a96e' },
+  { id: 'motion-SKILL.md',              label: 'Motion & Animation',      badge: 'GSAP / Framer',        color: '#c9a96e' },
+  { id: 'kupuri-frontend-SKILL.md',     label: 'Kupuri Frontend',         badge: 'Next.js / React',      color: '#8a8780' },
+  { id: 'design-principles-SKILL.md',   label: 'Design Principles',       badge: 'Core',                 color: '#8a8780' },
+  { id: 'color-psychology-SKILL.md',    label: 'Color Psychology',        badge: 'Brand',                color: '#8a8780' },
+  { id: 'brand-SKILL.md',               label: 'Brand Systems',           badge: 'Identity',             color: '#8a8780' },
+  { id: 'luxury-psychology-SKILL.md',   label: 'Luxury Psychology',       badge: 'Premium',              color: '#8a8780' },
+  { id: 'pass-framework-SKILL.md',      label: 'PASS Framework',          badge: 'Strategy',             color: '#8a8780' },
+  { id: 'behavioral-design-laws-SKILL.md', label: 'Behavioral Design',   badge: 'UX',                   color: '#8a8780' },
+  { id: 'udec-scorer-SKILL.md',         label: 'UDEC Scorer',             badge: 'Quality Gate',         color: '#c9a96e' },
+  { id: 'land-the-plane-SKILL.md',      label: 'Land the Plane',          badge: 'Delivery',             color: '#8a8780' },
 ]
 
 type SpawnResult = {
@@ -88,7 +90,7 @@ export default function SpawnPage() {
   const [domain, setDomain] = useState('')
   const [vpsHost, setVpsHost] = useState('')
   const [model, setModel] = useState('claude-opus-4-7')
-  const [selectedSkills, setSelectedSkills] = useState<string[]>(['udec-scorer-SKILL.md', 'design-principles-SKILL.md'])
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(['udec-scorer-SKILL.md', 'design-principles-SKILL.md', '3d-world-SKILL.md'])
 
   function toggleSkill(skill: string) {
     setSelectedSkills(prev => prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill])
@@ -237,20 +239,31 @@ export default function SpawnPage() {
             <section style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: '12px', padding: '1.5rem' }}>
               <p style={{ fontSize: '0.75rem', color: C.gold, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>04 — Skills Registry</p>
               <p style={{ fontSize: '0.75rem', color: C.dim, marginBottom: '1rem' }}>Emerald Tablets + DESIGN_LAWS always included.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '0.375rem' }}>
-                {ALL_SKILLS.map(skill => (
-                  <label key={skill} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.375rem 0' }}>
-                    <input
-                      type="checkbox"
-                      checked={selectedSkills.includes(skill)}
-                      onChange={() => toggleSkill(skill)}
-                      style={{ accentColor: C.gold }}
-                    />
-                    <span style={{ fontSize: '0.75rem', color: selectedSkills.includes(skill) ? C.text : C.dim, fontFamily: 'monospace' }}>
-                      {skill.replace('-SKILL.md', '')}
-                    </span>
-                  </label>
-                ))}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                {ALL_SKILLS.map(skill => {
+                  const active = selectedSkills.includes(skill.id)
+                  return (
+                    <label key={skill.id} style={{
+                      display: 'flex', alignItems: 'center', gap: '0.625rem', cursor: 'pointer',
+                      padding: '0.4375rem 0.625rem', borderRadius: '6px',
+                      background: active ? 'rgba(255,255,255,0.025)' : 'transparent',
+                      transition: 'background 120ms ease',
+                    }}>
+                      <input
+                        type="checkbox"
+                        checked={active}
+                        onChange={() => toggleSkill(skill.id)}
+                        style={{ accentColor: C.gold, flexShrink: 0 }}
+                      />
+                      <span style={{ fontSize: '0.8125rem', color: active ? C.text : C.dim, flex: 1 }}>
+                        {skill.label}
+                      </span>
+                      <span style={{ fontSize: '0.5625rem', color: skill.color, background: `${skill.color}15`, padding: '0.15rem 0.4rem', borderRadius: '3px', letterSpacing: '0.06em', flexShrink: 0 }}>
+                        {skill.badge}
+                      </span>
+                    </label>
+                  )
+                })}
               </div>
             </section>
 

@@ -1,10 +1,37 @@
-# SKILL: 3D WORLD GENERATION — LYRA PIPELINE + WEB DELIVERY
+# SKILL: 3D WORLD GENERATION — LYRA + HY-WORLDPLAY + WEB DELIVERY
 
 **Use this skill whenever:** creating explorable 3D worlds from images/videos, integrating
 3D Gaussian Splatting into web frontends, building interactive scene navigation, or producing
 camera-controlled generative world experiences for clients.
 
-Reference implementation: NVIDIA Lyra (https://github.com/nv-tlabs/lyra)
+## MODEL REGISTRY — choose based on deployment context
+
+| Model | Provider | Access | Best For |
+|-------|----------|--------|----------|
+| **NVIDIA Lyra 2.0** | NVIDIA (local) | GitHub: nv-tlabs/lyra | Maximum quality, GPU server available |
+| **Tencent HY-WorldPlay** | HuggingFace Inference API | `tencent/HY-WorldPlay` | Cloud API, no GPU required |
+
+### HY-WorldPlay (Tencent) — API-First
+```
+Model:    tencent/HY-WorldPlay
+HF Hub:   https://hf.co/tencent/HY-WorldPlay
+Tags:     worldmodel · 3d-generation · image-to-3D · text-to-3D · scene-generation
+Access:   POST https://api-inference.huggingface.co/models/tencent/HY-WorldPlay
+Auth:     Authorization: Bearer {HF_TOKEN}
+Input:    { "inputs": { "image": "<base64>", "prompt": "scene description" } }
+Output:   video/mp4 binary — multi-view consistent 3D scene
+Env var:  HF_TOKEN
+```
+
+### Studio OS API Endpoint
+```
+POST /api/worlds
+{ "provider": "hy-worldplay", "prompt": "...", "imageBase64": "..." }
+GET  /api/worlds  → connection test for all providers
+```
+
+### NVIDIA Lyra — Local Pipeline
+Reference implementation: https://github.com/nv-tlabs/lyra
 - Lyra 1.0 — feed-forward 3D/4D scene from single image via video diffusion self-distillation
 - Lyra 2.0 — explorable generative 3D worlds with long-horizon, 3D-consistent generation
 
@@ -14,7 +41,7 @@ Reference implementation: NVIDIA Lyra (https://github.com/nv-tlabs/lyra)
 
 ```
 1. Scene Seed        — single image + text caption + camera trajectory
-2. World Generation  — Lyra model: video diffusion → multi-view synthesis
+2. World Generation  — HY-WorldPlay (API) OR Lyra (local): multi-view synthesis
 3. 3D Reconstruction — depth + pose estimation → 3D Gaussian Splatting (3DGS)
 4. Web Delivery      — PLY/KSPLAT → Three.js gsplat renderer → interactive scene
 ```

@@ -72,6 +72,29 @@ const NAV = [
     ),
   },
   {
+    href: '/dashboard/worlds',
+    label: '3D Worlds',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2"/>
+        <ellipse cx="7" cy="7" rx="2.5" ry="5.5" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M1.5 7h11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    href: '/dashboard/video',
+    label: 'Seedance Video',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <rect x="1" y="3" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M9 5.5l4-2v7l-4-2" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
     href: '/dashboard/spawn',
     label: 'Spawn Agent',
     exact: false,
@@ -217,7 +240,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <span style={{ fontSize: '0.6875rem', color: '#5a5855', letterSpacing: '0.04em' }}>System online</span>
           </div>
           <p style={{ fontSize: '0.5625rem', color: '#2a2825', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Lyra + OpenClaw · UDEC 8.5
+            Lyra · HY-WorldPlay · Seedance · UDEC 8.5
           </p>
         </div>
       </aside>
