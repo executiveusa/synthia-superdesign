@@ -9,3 +9,4 @@ fi
 
 npm install --save-dev playwright
 npx playwright install chromium
+echo "Playwright setup complete."

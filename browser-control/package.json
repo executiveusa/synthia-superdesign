@@ -8,6 +8,7 @@
     "setup:playwright": "bash ./scripts/setup-playwright.sh",
     "setup:selenium": "bash ./scripts/setup-selenium.sh",
     "smoke": "node ./smoke/playwright-smoke.js",
-    "smoke:flow": "node ./smoke/playwright-deterministic-flow.js"
+    "smoke:flow": "node ./smoke/playwright-deterministic-flow.js",
+    "smoke:suite": "bash ./scripts/run-smoke-suite.sh"
   }
 }

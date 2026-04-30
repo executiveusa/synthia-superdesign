@@ -102,6 +102,7 @@ npm install
 npm run setup:playwright
 npm run smoke -- https://github.com/browser-use/browser-harness
 npm run smoke:flow
+npm run smoke:suite -- https://github.com/browser-use/browser-harness
 ```
 
 Outputs:
