@@ -97,6 +97,6 @@ Pull requests are welcome. Star the repo and join us on [Discord](https://discor
 
 - 🌐 Website: [https://superdesign.dev/ide-extension](https://superdesign.dev/ide-extension)
 - 📦 GitHub: [https://github.com/superdesigndev/superdesign](https://github.com/superdesigndev/superdesign)
+- 🧩 Open Design Library: [https://github.com/nexu-io/open-design](https://github.com/nexu-io/open-design)
 - 💬 Discord: [Join the Community](https://discord.gg/FYr49d6cQ9)
 - 🐦 Twitter / X: [@SuperDesignDev](https://x.com/SuperDesignDev)
-
