@@ -99,3 +99,89 @@ body {
   opacity: 0.4;
   pointer-events: none;
 }
+
+/* ===== DASHBOARD ===== */
+
+/* Custom scrollbar for dark surfaces */
+.dash-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+.dash-scroll::-webkit-scrollbar-track { background: transparent; }
+.dash-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+.dash-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
+
+/* Sidebar nav link hover */
+.dash-nav-link:hover {
+  color: var(--color-text-secondary) !important;
+  background: rgba(255,255,255,0.03) !important;
+}
+
+/* Dashboard card hover */
+.dash-card:hover {
+  border-color: rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.035) !important;
+}
+
+/* Agent card hover */
+.agent-card:hover {
+  border-color: rgba(201,169,110,0.15) !important;
+  background: rgba(201,169,110,0.03) !important;
+}
+
+/* Input focus ring */
+.dash-input:focus {
+  border-color: rgba(201,169,110,0.4) !important;
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.06) !important;
+}
+
+/* Typing animation for AI indicator dots */
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Status pulse for active agents */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.status-active { animation: status-pulse 2s ease-in-out infinite; }
+
+/* Shimmer for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Code / monospace blocks in dashboard */
+.dash-code {
+  font-family: 'DM Mono', 'Fira Code', monospace;
+  font-size: 0.6875rem;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  color: var(--color-text-secondary);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Gold accent top-border utility */
+.gold-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.45), transparent);
+}
+
+/* Badge variants */
+.badge { display: inline-flex; align-items: center; font-size: 0.5625rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 400; }
+.badge-gold  { background: rgba(201,169,110,0.1);  color: #c9a96e; }
+.badge-green { background: rgba(110,168,126,0.1);  color: #6ea87e; }
+.badge-red   { background: rgba(232,112,112,0.12); color: #e87070; }
+.badge-amber { background: rgba(232,192,112,0.1);  color: #e8c070; }
+.badge-dim   { background: rgba(255,255,255,0.05); color: #5a5855; }

@@ -82,6 +82,40 @@ export default function Nav() {
           </a>
         ))}
         <a
+          href="/dashboard"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.375rem',
+            color: '#8a8780',
+            textDecoration: 'none',
+            fontSize: '0.8125rem',
+            letterSpacing: '0.06em',
+            padding: '0.5rem 0.875rem',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '6px',
+            transition: 'all 200ms ease',
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.color = '#c9a96e'
+            el.style.borderColor = 'rgba(201,169,110,0.3)'
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLAnchorElement
+            el.style.color = '#8a8780'
+            el.style.borderColor = 'rgba(255,255,255,0.08)'
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+            <rect x="1" y="1" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+            <rect x="7" y="1" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+            <rect x="1" y="7" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+            <rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.1"/>
+          </svg>
+          Studio OS
+        </a>
+        <a
           href="#audit"
           style={{
             color: '#0d0f0e',
@@ -150,6 +184,13 @@ export default function Nav() {
               {item}
             </a>
           ))}
+          <a
+            href="/dashboard"
+            onClick={() => setMenuOpen(false)}
+            style={{ color: '#c9a96e', textDecoration: 'none', fontSize: '0.9375rem', letterSpacing: '0.06em' }}
+          >
+            Studio OS →
+          </a>
           <a
             href="#audit"
             onClick={() => setMenuOpen(false)}
