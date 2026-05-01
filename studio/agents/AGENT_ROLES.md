@@ -55,11 +55,11 @@ hands_to: [experience_architect, growth_audit_agent]
 **Inputs**: Classified job from Concierge (may include reference URLs or style guides)
 **Outputs**: Design brief with: architecture, page structure, component selection, motion plan, copy plan
 
-**Tools**: Doctrine lookup (via Librarian), pattern selection, task decomposition, Design MD Chrome
+**Tools**: Doctrine lookup (via Librarian), pattern selection, task decomposition, CLONE
 **Constraints**: Does not build — directs builders. Cannot override quality gate.
-**Extraction workflow**: When a client provides reference sites or style guides, use Design MD Chrome to extract design tokens and generate SKILL.md files to attach to briefs (helps builders match intent).
-**Escalation**: Complex multi-track jobs → split and assign sub-briefs. Reference site analysis → use Design MD Chrome for automated extraction.
-**Memory write**: `studio/memory/decisions/`, `studio/memory/extracted-systems/` (for reference SKILL.md files)
+**Extraction workflow**: When a client provides reference sites or style guides, use CLONE to extract complete design system (HTML + CSS + design tokens + WCAG audit) and generate SKILL.md files to attach to briefs (helps builders match intent).
+**Escalation**: Complex multi-track jobs → split and assign sub-briefs. Reference site analysis → use CLONE for comprehensive extraction.
+**Memory write**: `studio/memory/decisions/`, `studio/memory/cloned-websites/` (for reference clones and SKILL.md files)
 
 ---
 
@@ -72,7 +72,7 @@ hands_to: [experience_architect, growth_audit_agent]
 **Inputs**: Design brief from Experience Architect (may include reference URLs for style matching)
 **Outputs**: 3 parallel HTML variations per brief, stored in active job folder
 
-**Tools**: Kupuri frontend skill, Design MD Chrome, GSAP, Lenis, SplitText, GLSL shaders, Tailwind
+**Tools**: Kupuri frontend skill, CLONE, GSAP, Lenis, SplitText, GLSL shaders, Tailwind
 **Constraints**:
 - Always produce 3 variations (never 1)
 - Always use 5-technique cinematic scroll stack for landing pages
@@ -80,10 +80,10 @@ hands_to: [experience_architect, growth_audit_agent]
 - No Inter, Roboto, Arial, Helvetica, Open Sans
 - No purple. No generic card grids.
 - Must pass 20-point production checklist before submission
-- When given a reference URL: extract design tokens via Design MD Chrome before starting builds
+- When given a reference URL: use CLONE to extract complete design system (design tokens + WCAG audit + asset map) before starting builds
 - Match extracted color palette and typography scale in at least one variation
 **Escalation**: Unclear design direction → Experience Architect. Technical blocker → Ops.
-**Memory write**: `studio/memory/approved-patterns/` (after approval only), `studio/memory/extracted-systems/` (for reference SKILL.md files)
+**Memory write**: `studio/memory/approved-patterns/` (after approval only), `studio/memory/cloned-websites/` (for reference clones)
 
 ---
 
@@ -156,17 +156,17 @@ hands_to: [experience_architect, growth_audit_agent]
 **Inputs**: Completed artifacts from any production agent (may include reference URLs or extracted DESIGN.md files)
 **Outputs**: Audit JSON (14-axis scores), pass/fail decision, repair instructions, WCAG compliance reports
 
-**Tools**: UDEC 14-axis framework, guardrails checker, Awwwards reference library, Design MD Chrome
+**Tools**: UDEC 14-axis framework, guardrails checker, Awwwards reference library, CLONE
 **Constraints**:
 - Cannot score files containing TODOs or stubs (auto-reject)
 - Cannot round scores (precision to 0.1)
 - Cannot approve anything below 8.5 composite
 - Cannot approve if MOT < 7.0 or ACC < 7.0
 - Must cite specific code evidence for each score
-- When auditing accessibility: use Design MD Chrome to generate WCAG 2.2 AA report
-- When auditing against a reference: use Design MD Chrome to extract and compare token adherence
-**Escalation**: Score dispute → full re-review by second Reviewer instance. WCAG failures → recommend token extraction via Design MD Chrome.
-**Memory write**: `studio/memory/critiques/`, `studio/audits/`, `studio/memory/extracted-systems/` (for reference WCAG reports)
+- When auditing accessibility: use CLONE to generate WCAG 2.2 AA report
+- When auditing against a reference: use CLONE to extract and compare token adherence
+**Escalation**: Score dispute → full re-review by second Reviewer instance. WCAG failures → recommend CLONE extraction for comprehensive audit.
+**Memory write**: `studio/memory/critiques/`, `studio/audits/`, `studio/memory/cloned-websites/` (for reference clones and WCAG reports)
 
 ---
 
