@@ -65,6 +65,52 @@ Or install globally:
 npm install -g designlang
 ```
 
+## Video Export (NEW)
+
+Generate Hyperframes video composition from extracted design system:
+
+```
+/clone https://example.com --export-video
+```
+
+Creates:
+- **design-showcase-video.html** - Animated design system walkthrough
+- **preview** - Live video preview (localhost:3000)
+- **render** - MP4 export ready
+
+### Showcase Includes
+
+The generated video showcases:
+- **Color palette** - Animated color boxes with hex values
+- **Typography** - Heading & body text samples with hierarchy
+- **Components** - Interactive component states (default, hover, active)
+- **Layout grid** - Spacing system visualization
+- **Responsive breakpoints** - Layout changes across 4 viewports
+- **Brand identity** - Logo, colors, fonts animated together
+- **Accessibility score** - WCAG 2.1 rating displayed
+
+### Video Output Formats
+
+```bash
+# Standard web MP4
+npm run video:render  # → design-showcase.mp4
+
+# All formats (MP4, WebM, ProRes)
+npm run video:render-all
+
+# Preview before rendering
+npm run video:preview
+```
+
+**Specifications:**
+- Format: Vertical (1080×1920) or Horizontal (1920×1080)
+- Duration: 20-30 seconds
+- Frame rate: 30 fps
+- Audio: Ambient background music
+- Captions: Auto-generated with hex values, font names
+
 ---
 
 **Note:** This extracts visual design systems only. For component extraction, use the design-extract repository patterns directly.
+
+**Video + Design:** Clone skill now integrates with Hyperframes video studio for complete design documentation (static + animated).
