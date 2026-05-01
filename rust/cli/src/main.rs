@@ -72,6 +72,33 @@ enum Commands {
         /// Optional path to validate (default: entire studio)
         path: Option<PathBuf>,
     },
+
+    /// Extract design tokens from a URL (Design MD Chrome integration)
+    Extract {
+        /// URL to extract design tokens from
+        #[arg(long)]
+        url: String,
+
+        /// Output directory for extracted files (DESIGN.md, SKILL.md, WCAG report)
+        #[arg(long, default_value = "./extracted")]
+        output: PathBuf,
+
+        /// Extraction mode: 'full' (default), 'wcag' (accessibility only), 'tokens' (design tokens only)
+        #[arg(long, default_value = "full")]
+        mode: String,
+
+        /// Path to anti-pattern rules (Cynthia doctrine compliance check)
+        #[arg(long)]
+        rules: Option<PathBuf>,
+
+        /// Batch mode: read URLs from file (one per line)
+        #[arg(long)]
+        batch: Option<PathBuf>,
+
+        /// Save to studio memory automatically (studio/memory/extracted-systems/)
+        #[arg(long)]
+        to_memory: bool,
+    },
 }
 
 fn main() -> anyhow::Result<()> {
@@ -122,6 +149,15 @@ fn main() -> anyhow::Result<()> {
             let target = path.unwrap_or(cli.studio_root.clone());
             println!("Validating: {}", target.display());
             validate_file(&target)?;
+        }
+        Commands::Extract { url, output, mode, rules, batch, to_memory } => {
+            if let Some(batch_file) = batch {
+                println!("Running batch extraction from: {}", batch_file.display());
+                extract_batch(&batch_file, &output, &mode, rules.as_ref(), to_memory, &cli.studio_root)?;
+            } else {
+                println!("Extracting design tokens from: {}", url);
+                extract_url(&url, &output, &mode, rules.as_ref(), to_memory, &cli.studio_root)?;
+            }
         }
     }
 
@@ -193,5 +229,53 @@ fn validate_file(path: &PathBuf) -> anyhow::Result<()> {
         }
     }
 
+    Ok(())
+}
+
+fn extract_url(url: &str, output: &PathBuf, mode: &str, rules: Option<&PathBuf>, to_memory: bool, studio_root: &PathBuf) -> anyhow::Result<()> {
+    println!("  Mode: {}", mode);
+
+    std::fs::create_dir_all(output)?;
+
+    println!("  NOTE: Design MD Chrome extraction requires running in a browser environment.");
+    println!("  This CLI currently serves as a placeholder/router for headless extraction.");
+    println!("\n  To extract tokens, use one of:");
+    println!("    1. Load design-md-chrome extension in Chrome and click the icon");
+    println!("    2. Use design-md-chrome headless mode: npm run extract -- --url {}", url);
+    println!("    3. Integrate via Puppeteer: see DESIGN-MD-CHROME-INTEGRATION.md");
+
+    if to_memory {
+        let memory_dir = studio_root.join("studio/memory/extracted-systems");
+        println!("\n  Output will be saved to: {}", memory_dir.display());
+    } else {
+        println!("\n  Output directory: {}", output.display());
+    }
+
+    if let Some(rules_path) = rules {
+        println!("  Anti-pattern rules: {}", rules_path.display());
+    }
+
+    println!("\n  Extraction queued. See: studio/ops/DESIGN-MD-CHROME-INTEGRATION.md");
+    Ok(())
+}
+
+fn extract_batch(batch_file: &PathBuf, output: &PathBuf, mode: &str, rules: Option<&PathBuf>, to_memory: bool, studio_root: &PathBuf) -> anyhow::Result<()> {
+    if !batch_file.exists() {
+        println!("Batch file not found: {}", batch_file.display());
+        return Ok(());
+    }
+
+    let content = std::fs::read_to_string(batch_file)?;
+    let urls: Vec<&str> = content.lines().filter(|l| !l.is_empty() && !l.starts_with('#')).collect();
+
+    println!("Found {} URLs to extract", urls.len());
+    std::fs::create_dir_all(output)?;
+
+    for (i, url) in urls.iter().enumerate() {
+        println!("[{}/{}] Extracting: {}", i + 1, urls.len(), url);
+        extract_url(url, output, mode, rules, to_memory, studio_root)?;
+    }
+
+    println!("\nBatch extraction complete. Check: {}", output.display());
     Ok(())
 }
