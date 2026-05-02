@@ -1,4 +1,4 @@
-# Studio Catalog — Cynthia Design Studio
+# Studio Catalog — Synthia™ Studio
 # Version: 1.0.0
 # Generated: 2026-04-04
 # Purpose: Master index of everything in the studio
@@ -6,7 +6,7 @@
 ## Core Documents (read-first)
 | Document | Path | Purpose |
 |----------|------|---------|
-| Studio Manifest | /STUDIO_MANIFEST.md | What Cynthia is |
+| Studio Manifest | /STUDIO_MANIFEST.md | What Synthia™ is |
 | Agent Onboarding | /AGENT_ONBOARDING.md | How to start working |
 | Operating Model | /studio/ops/OPERATING_MODEL.md | 8-layer system |
 | Agent Roles | /studio/agents/AGENT_ROLES.md | 12 agent definitions |
@@ -81,7 +81,7 @@
 ## Rust Infrastructure
 | Crate | Purpose | Priority |
 |-------|---------|----------|
-| rust/cli/ | cynthia CLI | P1 |
+| rust/cli/ | synthia CLI | P1 |
 | rust/validators/ | Anti-pattern detection | P0 |
 | rust/indexers/ | Knowledge graph compiler | P0 |
 | rust/mcp/ | MCP server | P1 |

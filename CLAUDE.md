@@ -1,16 +1,16 @@
 # CLAUDE.md — executiveusa/synthia-superdesign
-# The Pauli Effect™ — Cynthia Design Studio
+# The Pauli Effect™ — Synthia™ Studio
 # Canonical autonomous design authority
 
 ---
 
 ## What This Repo Is
 
-This is **Cynthia** — an autonomous AI design studio that produces premium design work at Awwwards SOTD caliber. Twelve specialized agents collaborate under a machine-verified quality framework (UDEC 8.5 floor) using the Karpathy Council protocol (3 parallel variations → review → synthesize → iterate).
+This is **Synthia™** — an autonomous AI design studio that produces premium design work at Awwwards SOTD caliber. Twelve specialized agents collaborate under a machine-verified quality framework (UDEC 8.5 floor) using the Karpathy Council protocol (3 parallel variations → review → synthesize → iterate).
 
 ## Read First — In This Order
 
-1. **STUDIO_MANIFEST.md** — What Cynthia is. Architecture. Rules.
+1. **STUDIO_MANIFEST.md** — What Synthia™ is. Architecture. Rules.
 2. **studio/agents/AGENT_ROLES.md** — The 12 agents and their contracts
 3. **studio/doctrine/DESIGN_LAWS.md** — 14 non-negotiable design laws
 4. **studio/ops/OPERATING_MODEL.md** — 8-layer operating system
@@ -45,7 +45,7 @@ This is **Cynthia** — an autonomous AI design studio that produces premium des
 │   └── patterns/                ← Reusable HTML patterns
 │
 ├── rust/                        ← Rust-first infrastructure
-│   ├── cli/                     ← cynthia CLI
+│   ├── cli/                     ← synthia CLI
 │   ├── validators/              ← Anti-pattern detection
 │   ├── indexers/                ← Knowledge graph compiler
 │   ├── mcp/                     ← MCP server

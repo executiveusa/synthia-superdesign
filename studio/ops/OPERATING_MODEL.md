@@ -1,10 +1,10 @@
-# Cynthia Studio Operating Model
+# Synthia™ Studio Operating Model
 # Version: 1.0.0
 # Date: 2026-04-04
 
 ## Overview
 
-Cynthia operates as an 8-layer autonomous design studio. Each layer has clear responsibilities, inputs, outputs, and governance rules.
+Synthia™ operates as an 8-layer autonomous design studio. Each layer has clear responsibilities, inputs, outputs, and governance rules.
 
 ---
 
@@ -181,7 +181,7 @@ Jobs requiring approval are placed in `studio/jobs/review/` with a `requires_hum
 | linear.app | 9.0+ |
 | stripe.com | 8.8+ |
 | vercel.com | 8.6+ |
-| **Cynthia floor** | **8.5** |
+| **Synthia™ floor** | **8.5** |
 
 ---
 

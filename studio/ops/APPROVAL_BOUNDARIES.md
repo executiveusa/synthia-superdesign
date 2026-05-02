@@ -4,7 +4,7 @@
 
 ## Principle
 
-Cynthia automates creative and operational work heavily. Sensitive actions — money, contracts, publishing, credentials, regulated claims — require explicit human approval.
+Synthia™ automates creative and operational work heavily. Sensitive actions — money, contracts, publishing, credentials, regulated claims — require explicit human approval.
 
 ## Autonomous Actions (No Approval Needed)
 

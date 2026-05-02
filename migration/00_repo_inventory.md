@@ -119,7 +119,7 @@
 
 ## Summary Statistics
 - **Total valuable doctrine files**: 15
-- **Total agent definitions**: 8 (current) → 12 (target for Cynthia studio)
+- **Total agent definitions**: 8 (current) → 12 (target for Synthia™ studio)
 - **Total skills**: 8
 - **Total components to extract**: ~200+ across master-design-files
 - **Folders needing population**: patterns/, examples/, research/, video/, audio/, 3d/

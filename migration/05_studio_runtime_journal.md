@@ -16,9 +16,9 @@
 
 ## Decision 003: Paperclip as Control Plane
 **Date**: 2026-04-04
-**Decision**: Paperclip handles org structure, governance, budgets, agent tracking. Cynthia handles design intelligence.
-**Rationale**: Don't reinvent orchestration. Paperclip already has org charts, heartbeats, governance, plugins. Cynthia should focus on what makes it unique: design quality.
-**Separation**: Paperclip = structure. Cynthia = substance.
+**Decision**: Paperclip handles org structure, governance, budgets, agent tracking. Synthia™ handles design intelligence.
+**Rationale**: Don't reinvent orchestration. Paperclip already has org charts, heartbeats, governance, plugins. Synthia™ should focus on what makes it unique: design quality.
+**Separation**: Paperclip = structure. Synthia™ = substance.
 
 ## Decision 004: Rust-First Infrastructure
 **Date**: 2026-04-04
@@ -50,7 +50,7 @@
 ## Decision 009: Landing Page as 7-Scene Narrative
 **Date**: 2026-04-04
 **Decision**: The public landing page follows a 7-scene cinematic narrative structure.
-**Rationale**: This is not a marketing site — it's a demonstration of what Cynthia can do. The landing page should be the best work in the portfolio. 7 scenes provide enough structure for a complete narrative arc.
+**Rationale**: This is not a marketing site — it's a demonstration of what Synthia™ can do. The landing page should be the best work in the portfolio. 7 scenes provide enough structure for a complete narrative arc.
 
 ## Decision 010: Edge/Mobile via Gemma 4
 **Date**: 2026-04-04

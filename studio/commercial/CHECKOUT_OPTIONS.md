@@ -1,4 +1,4 @@
-# Checkout Options — Cynthia Design Studio
+# Checkout Options — Synthia™ Studio
 # Version: 1.0.0
 
 ## Available Checkout Methods

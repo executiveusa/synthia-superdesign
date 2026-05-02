@@ -133,7 +133,7 @@ Generated DESIGN.md includes these sections:
 - Motion: [prefers-reduced-motion respected? yes/no]
 
 ## Anti-patterns Detected
-- [List of violations from Cynthia doctrine]
+- [List of violations from Synthia™ doctrine]
 
 ## Implementation Rules
 - When spacing is used, always use the extracted scale (no ad-hoc spacing)
@@ -177,7 +177,7 @@ Accent:     [hex]  # [usage]
 
 ---
 
-## INTEGRATION WITH CYNTHIA AGENTS
+## INTEGRATION WITH SYNTHIA AGENTS
 
 ### RALPHY (Frontend Agent)
 ```
@@ -194,7 +194,7 @@ When starting a new design job:
 When auditing a competitor:
 1. MARCO extracts their site using design-md-chrome
 2. MARCO generates anti-pattern report
-3. MARCO compares their palette against Cynthia doctrine
+3. MARCO compares their palette against Synthia™ doctrine
 4. MARCO flags any WCAG violations
 5. MARCO archives the DESIGN.md for future reference
 ```
@@ -247,9 +247,9 @@ If extraction diverges from expectations, the website itself may not follow a di
 
 ---
 
-## CYNTHIA DOCTRINE INTEGRATION
+## SYNTHIA DOCTRINE INTEGRATION
 
-After extraction, the generated DESIGN.md should be scored against Cynthia design laws:
+After extraction, the generated DESIGN.md should be scored against Synthia™ design laws:
 
 ```
 ✓ Does it follow spacing rhythm? (DESIGN_LAWS.md: Law 3)
@@ -291,7 +291,7 @@ Violations become **anti-pattern warnings** that agents should note in their aud
 - File a GitHub issue with the problematic site as a test case
 
 ### SKILL.md doesn't work with my agent?
-- Verify the SKILL.md format matches other Cynthia skills
+- Verify the SKILL.md format matches other Synthia™ skills
 - Add context hints for the agent: "This was auto-extracted from [site]"
 - Include a link to the original reference for human verification
 - Use SKILL.md as a supplement, not a replacement for design thinking
@@ -304,7 +304,7 @@ Want to teach design-md-chrome your own anti-patterns?
 
 1. Fork the repo: `git clone https://github.com/bergside/design-md-chrome.git`
 2. Modify `src/extractors/patterns.js` to add your rules
-3. Modify `src/validators/cynthia-doctrine.js` to flag custom violations
+3. Modify `src/validators/synthia-doctrine.js` to flag custom violations
 4. Load the modified extension and test
 5. Contribute back if it's useful to the community
 

@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-sync-tools"
+name = "synthia-sync-tools"
 version.workspace = true
 edition.workspace = true
 

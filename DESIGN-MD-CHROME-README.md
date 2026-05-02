@@ -1,12 +1,12 @@
-# Design MD Chrome Integration — Cynthia Design Studio
+# Design MD Chrome Integration — Synthia™ Studio
 
-🎨 **Automated design token extraction** is now integrated into the Cynthia stack.
+🎨 **Automated design token extraction** is now integrated into the Synthia™ stack.
 
 ---
 
 ## What Just Happened
 
-Design MD Chrome, an open-source Chrome extension, is now a **first-class tool** for Cynthia agents. Agents can now automatically extract design systems from any website in ~5 minutes instead of 2+ hours.
+Design MD Chrome, an open-source Chrome extension, is now a **first-class tool** for Synthia™ agents. Agents can now automatically extract design systems from any website in ~5 minutes instead of 2+ hours.
 
 ### Key Files Added
 
@@ -14,7 +14,7 @@ Design MD Chrome, an open-source Chrome extension, is now a **first-class tool**
 |------|---------|
 | `studio/doctrine/design-md-chrome-SKILL.md` | Complete skill documentation for agents |
 | `studio/ops/DESIGN-MD-CHROME-INTEGRATION.md` | Step-by-step integration guide |
-| `rust/cli/src/main.rs` | New `cynthia extract` CLI command (routes to headless extraction) |
+| `rust/cli/src/main.rs` | New `synthia extract` CLI command (routes to headless extraction) |
 | `AGENT_ROLES.md` (updated) | Ralphy, Lena, Experience Architect can now use this tool |
 
 ### Key Files Modified
@@ -97,7 +97,7 @@ git clone https://github.com/bergside/design-md-chrome.git ~/design-md-chrome
 
 ---
 
-## Use Cases in Cynthia
+## Use Cases in Synthia™
 
 ### 1. Reference-Based Design
 
@@ -118,7 +118,7 @@ LENA scores: "V1 perfectly matches token system" ✓
 Marco extracts competitor.com → DESIGN.md + WCAG report + anti-pattern check
 Saves to: studio/memory/competitive-analysis/[competitor]/
 Lena reviews → adds to institutional knowledge
-Future jobs reference: "Build like Stripe, but with Cynthia palette"
+Future jobs reference: "Build like Stripe, but with Synthia™ palette"
 ```
 
 ### 3. Accessibility Audit
@@ -141,33 +141,33 @@ Agent searches: studio/memory/extracted-systems/
 Finds: payment-flow-SKILL.md (from previous competitor analysis)
 Uses extracted tokens as baseline
 Asks Librarian: "Can we use these colors/typography?"
-Gets: "Yes, with these Cynthia-specific modifications"
+Gets: "Yes, with these Synthia™-specific modifications"
 ```
 
 ---
 
 ## CLI Integration
 
-### New Command: `cynthia extract`
+### New Command: `synthia extract`
 
 ```bash
 # Extract from a single URL
-cynthia extract --url https://stripe.com --output ./extracted/
+synthia extract --url https://stripe.com --output ./extracted/
 
 # Generate WCAG report only
-cynthia extract --url https://example.com --mode wcag --output ./audits/
+synthia extract --url https://example.com --mode wcag --output ./audits/
 
 # Extract design tokens only
-cynthia extract --url https://example.com --mode tokens --output ./tokens/
+synthia extract --url https://example.com --mode tokens --output ./tokens/
 
 # Batch extraction
-cynthia extract --batch competitors.txt --output studio/memory/competitive-analysis/
+synthia extract --batch competitors.txt --output studio/memory/competitive-analysis/
 
 # Save directly to studio memory
-cynthia extract --url https://example.com --to-memory
+synthia extract --url https://example.com --to-memory
 
 # With anti-pattern checking
-cynthia extract --url https://example.com \
+synthia extract --url https://example.com \
                  --rules studio/anti-patterns/registry.yaml \
                  --output ./checked/
 ```
@@ -219,7 +219,7 @@ Each memory entry is indexed and searchable by agents.
 
 ## Design Laws Compliance
 
-Extracted systems are automatically checked against Cynthia doctrine:
+Extracted systems are automatically checked against Synthia™ doctrine:
 
 - ✓ No banned fonts (Inter, Roboto, Arial, Helvetica, Open Sans, Montserrat, Poppins, Lato)
 - ✓ No purple dominant palettes
@@ -256,7 +256,7 @@ In order:
    - Experience Architect: Can extract from client references
 
 4. **`rust/cli/src/main.rs`** — CLI implementation
-   - New `cynthia extract` command
+   - New `synthia extract` command
    - Routes to headless extraction
 
 ---
@@ -276,7 +276,7 @@ In order:
 
 ### Medium-term (Month 1)
 - [ ] Integrate headless extraction (design-md-chrome npm package)
-- [ ] Wire `cynthia extract` CLI command to full functionality
+- [ ] Wire `synthia extract` CLI command to full functionality
 - [ ] Batch extract top 20 competitor sites
 - [ ] Create design system reference library
 
@@ -302,8 +302,8 @@ A: That's honest feedback. Flag it in memory with: "Website has inconsistent tok
 **Q: How accurate is WCAG extraction?**  
 A: Very accurate for contrast ratios and structural checks. Run axe-core in parallel for comprehensive audit.
 
-**Q: Can I customize extraction for Cynthia doctrine?**  
-A: Yes. Fork design-md-chrome, modify `src/validators/cynthia-doctrine.js`, load locally.
+**Q: Can I customize extraction for Synthia™ doctrine?**  
+A: Yes. Fork design-md-chrome, modify `src/validators/synthia-doctrine.js`, load locally.
 
 ---
 
@@ -321,7 +321,7 @@ A: Yes. Fork design-md-chrome, modify `src/validators/cynthia-doctrine.js`, load
 - **Integration guide**: `studio/ops/DESIGN-MD-CHROME-INTEGRATION.md`
 - **Agent updates**: `studio/agents/AGENT_ROLES.md`
 - **GitHub issues**: https://github.com/bergside/design-md-chrome/issues
-- **Cynthia support**: Ask in #studio channel (Telegram/Discord)
+- **Synthia™ support**: Ask in #studio channel (Telegram/Discord)
 
 ---
 

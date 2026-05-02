@@ -1,4 +1,4 @@
-# Landing Page Architecture — Cynthia Design Studio
+# Landing Page Architecture — Synthia™ Studio
 # Version: 1.0.0
 
 ## Narrative Arc
@@ -16,7 +16,7 @@ The landing page tells a single story in 7 scenes:
 **Motion**: Parallax reveal on scroll.
 
 ### Scene 3: The Difference (Positioning)
-**Message**: "Cynthia is an autonomous design studio. World-class standards. Visible execution. Premium outcomes."
+**Message**: "Synthia™ is an autonomous design studio. World-class standards. Visible execution. Premium outcomes."
 **Visual**: Three pillars with staggered entrance:
 1. **Standards** — UDEC 8.5 quality floor, 14-axis scoring
 2. **Transparency** — Watch your project being built in real time

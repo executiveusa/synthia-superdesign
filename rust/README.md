@@ -1,16 +1,16 @@
-# Rust Infrastructure — Cynthia Design Studio
+# Rust Infrastructure — Synthia™ Studio
 # Version: 1.0.0
 
 ## Overview
 
-Cynthia uses Rust for all durable production infrastructure: event processing, validation, indexing, routing, packaging, and mobile bridges. Rust is chosen for reliability, performance, and long-term maintainability.
+Synthia™ uses Rust for all durable production infrastructure: event processing, validation, indexing, routing, packaging, and mobile bridges. Rust is chosen for reliability, performance, and long-term maintainability.
 
 ## Workspace Structure
 
 ```
 rust/
 ├── Cargo.toml              (workspace root)
-├── cli/                    (cynthia CLI)
+├── cli/                    (synthia CLI)
 ├── mcp/                    (MCP server for agent tool access)
 ├── bridges/                (integration bridges)
 ├── validators/             (doctrine + schema validators)
@@ -19,84 +19,84 @@ rust/
 ├── graph-tools/            (relationship graph utilities)
 ├── sync-tools/             (repo reconciliation)
 └── crates/
-    ├── cynthia-event-bus/       Event normalization and routing
-    ├── cynthia-observer/        Observability API (SSE/WebSocket)
-    ├── cynthia-router/          Task routing engine
-    ├── cynthia-validator/       Doctrine + anti-pattern validator
-    ├── cynthia-packager/        Artifact packaging and export
-    ├── cynthia-heartbeat/       Agent heartbeat relay
-    ├── cynthia-memory-compiler/ Memory compaction and indexing
-    ├── cynthia-mobile-bridge/   Mobile-safe API layer
-    ├── cynthia-payment-state/   Payment state normalization
-    └── cynthia-design-indexer/  Studio knowledge graph compiler
+    ├── synthia-event-bus/       Event normalization and routing
+    ├── synthia-observer/        Observability API (SSE/WebSocket)
+    ├── synthia-router/          Task routing engine
+    ├── synthia-validator/       Doctrine + anti-pattern validator
+    ├── synthia-packager/        Artifact packaging and export
+    ├── synthia-heartbeat/       Agent heartbeat relay
+    ├── synthia-memory-compiler/ Memory compaction and indexing
+    ├── synthia-mobile-bridge/   Mobile-safe API layer
+    ├── synthia-payment-state/   Payment state normalization
+    └── synthia-design-indexer/  Studio knowledge graph compiler
 ```
 
 ## Crate Descriptions
 
-### cynthia-event-bus
+### synthia-event-bus
 - Normalized event ingestion from all agents
 - Append-only event log (file-backed or SQLite)
 - Pub/sub for real-time consumers
 - Event replay capability
 - Schema validation on ingest
 
-### cynthia-observer
+### synthia-observer
 - SSE endpoint for real-time dashboard updates
 - WebSocket support for interactive views
 - Per-job and per-agent event filtering
 - Summary generation for mobile views
 - Timeline reconstruction from events
 
-### cynthia-router
+### synthia-router
 - Task classification engine
 - Agent assignment based on task-routing.yaml
 - Skill/doctrine dependency resolution
 - Load balancing across agent instances
 - Escalation rule enforcement
 
-### cynthia-validator
+### synthia-validator
 - Anti-pattern detection (regex-based from registry.yaml)
 - Doctrine compliance checking
 - HTML output validation (banned fonts, banned colors, etc.)
 - Schema validation for job contracts, events, payments
 - CI/CD integration for pre-commit checks
 
-### cynthia-packager
+### synthia-packager
 - Artifact bundling for client delivery
 - HTML/CSS/JS minification and optimization
 - Asset collection and manifest generation
 - ZIP/tar archive creation
 - Deployment manifest generation
 
-### cynthia-heartbeat
+### synthia-heartbeat
 - Agent heartbeat collection and relay
 - Health status aggregation
 - Stale agent detection
 - Alert generation for offline agents
 - Heartbeat history for reliability metrics
 
-### cynthia-memory-compiler
+### synthia-memory-compiler
 - Memory entry deduplication
 - Pattern extraction from approved work
 - Lesson consolidation
 - Stale entry detection
 - Knowledge graph update generation
 
-### cynthia-mobile-bridge
+### synthia-mobile-bridge
 - Lightweight REST API for mobile dashboard
 - Job status queries
 - Agent status queries
 - Approval action endpoints
 - Push notification triggers
 
-### cynthia-payment-state
+### synthia-payment-state
 - Payment event normalization across providers (Stripe, Creem, Cash App)
 - Invoice state machine
 - Revenue ledger writer
 - Webhook signature verification
 - Fulfillment trigger logic
 
-### cynthia-design-indexer
+### synthia-design-indexer
 - Studio catalog generation from file system
 - Component registry compilation
 - Doctrine map generation
@@ -106,18 +106,18 @@ rust/
 ## CLI Commands
 
 ```
-cynthia inventory          List all studio artifacts
-cynthia plan <brief>       Generate design plan from brief
-cynthia classify <file>    Classify an artifact
-cynthia generate <type>    Generate artifact from template
-cynthia review <file>      Run automated review checks
-cynthia repair <file>      Apply automated fixes
-cynthia package <job_id>   Package job for delivery
-cynthia search <query>     Search studio knowledge
-cynthia heartbeat          Show agent health status
-cynthia audit <url>        Run site audit
-cynthia index              Rebuild studio index
-cynthia validate           Check doctrine compliance
+synthia inventory          List all studio artifacts
+synthia plan <brief>       Generate design plan from brief
+synthia classify <file>    Classify an artifact
+synthia generate <type>    Generate artifact from template
+synthia review <file>      Run automated review checks
+synthia repair <file>      Apply automated fixes
+synthia package <job_id>   Package job for delivery
+synthia search <query>     Search studio knowledge
+synthia heartbeat          Show agent health status
+synthia audit <url>        Run site audit
+synthia index              Rebuild studio index
+synthia validate           Check doctrine compliance
 ```
 
 ## Build & Run
@@ -127,16 +127,16 @@ cynthia validate           Check doctrine compliance
 cargo build --workspace
 
 # Run CLI
-cargo run -p cynthia-cli -- inventory
+cargo run -p synthia-cli -- inventory
 
 # Run event bus service
-cargo run -p cynthia-event-bus -- serve --port 8080
+cargo run -p synthia-event-bus -- serve --port 8080
 
 # Run observer (SSE endpoint)
-cargo run -p cynthia-observer -- serve --port 8081
+cargo run -p synthia-observer -- serve --port 8081
 
 # Run validator as CI check
-cargo run -p cynthia-validator -- check ./studio/
+cargo run -p synthia-validator -- check ./studio/
 ```
 
 ## Dependencies (key crates)
@@ -162,14 +162,14 @@ tracing-subscriber = "0.3"
 
 | Priority | Crate | Rationale |
 |----------|-------|-----------|
-| P0 | cynthia-validator | Immediate value: catch anti-patterns in CI |
-| P0 | cynthia-design-indexer | Immediate value: searchable studio catalog |
-| P1 | cynthia-event-bus | Foundation for observability |
-| P1 | cynthia-router | Foundation for task automation |
-| P1 | cynthia-cli | Developer experience |
-| P2 | cynthia-observer | Dashboard backend |
-| P2 | cynthia-heartbeat | Agent monitoring |
-| P2 | cynthia-packager | Delivery automation |
-| P3 | cynthia-memory-compiler | Long-term learning |
-| P3 | cynthia-mobile-bridge | Mobile access |
-| P3 | cynthia-payment-state | Revenue operations |
+| P0 | synthia-validator | Immediate value: catch anti-patterns in CI |
+| P0 | synthia-design-indexer | Immediate value: searchable studio catalog |
+| P1 | synthia-event-bus | Foundation for observability |
+| P1 | synthia-router | Foundation for task automation |
+| P1 | synthia-cli | Developer experience |
+| P2 | synthia-observer | Dashboard backend |
+| P2 | synthia-heartbeat | Agent monitoring |
+| P2 | synthia-packager | Delivery automation |
+| P3 | synthia-memory-compiler | Long-term learning |
+| P3 | synthia-mobile-bridge | Mobile access |
+| P3 | synthia-payment-state | Revenue operations |

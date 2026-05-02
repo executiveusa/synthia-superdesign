@@ -1,10 +1,10 @@
-# Payments Architecture — Cynthia Design Studio
+# Payments Architecture — Synthia™ Studio
 # Version: 1.0.0
 # Date: 2026-04-04
 
 ## Overview
 
-Cynthia supports payment collection for design services through a multi-provider architecture. The system separates quoting, invoicing, checkout, fulfillment, and revenue tracking into distinct stages with explicit approval gates.
+Synthia™ supports payment collection for design services through a multi-provider architecture. The system separates quoting, invoicing, checkout, fulfillment, and revenue tracking into distinct stages with explicit approval gates.
 
 ## Payment Flow
 

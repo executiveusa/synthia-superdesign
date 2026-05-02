@@ -36,7 +36,7 @@ When you drop a URL, CLONE automatically:
 - Captures spacing & layout patterns
 - Documents interactive states (hover, focus, active, disabled, error)
 - Generates WCAG 2.2 AA accessibility audit
-- Detects anti-patterns against Cynthia doctrine
+- Detects anti-patterns against Synthia™ doctrine
 - Outputs: DESIGN.md + SKILL.md + anti-pattern report
 
 ### 3. **Design Tokens Export** (via designlang)
@@ -148,7 +148,7 @@ cloned-websites/example-com/
 │   ├── design-tokens.html (visual preview)
 │   ├── design-tokens.md (markdown reference)
 │   ├── accessibility-report.md (WCAG 2.2 AA audit)
-│   ├── anti-patterns.md (Cynthia doctrine violations)
+│   ├── anti-patterns.md (Synthia™ doctrine violations)
 │   └── color-palette.svg (visual swatch)
 │
 ├── Analysis & Metadata
@@ -207,7 +207,7 @@ cloned-websites/example-com/
 /clone <url> --update-existing             # Re-clone existing clone, merge changes
 
 # Integration
-/clone <url> --cynthia-check              # Validate against Cynthia design doctrine
+/clone <url> --synthia-check              # Validate against Synthia™ design doctrine
 /clone <url> --competitor-analysis        # Format for competitive analysis
 /clone <url> --reference-for-job <job-id> # Link clone to specific design job
 ```
@@ -274,7 +274,7 @@ npm install -g designlang design-md-chrome puppeteer
 cargo install synthia-clone
 
 # Verify installation
-cynthia clone --version
+synthia clone --version
 ```
 
 ### Via Claude Code
@@ -292,19 +292,19 @@ cynthia clone --version
 
 ```bash
 # Single URL
-cynthia clone https://example.com --output ./clones/
+synthia clone https://example.com --output ./clones/
 
 # Batch mode
-cynthia clone --batch urls.txt --output ./clones/ --parallel 3
+synthia clone --batch urls.txt --output ./clones/ --parallel 3
 
 # Design tokens only
-cynthia clone https://example.com --mode tokens-only --output ./tokens/
+synthia clone https://example.com --mode tokens-only --output ./tokens/
 
 # Full analysis
-cynthia clone https://example.com --deep-analysis --wcag-full --with-assets
+synthia clone https://example.com --deep-analysis --wcag-full --with-assets
 
 # Save to memory
-cynthia clone https://example.com --to-memory --competitor-analysis
+synthia clone https://example.com --to-memory --competitor-analysis
 ```
 
 ### Via Node/npm
@@ -343,7 +343,7 @@ node clone.js https://example.com --with-assets --offline
 - Animation specs (easing, duration, delay)
 - Interactive states (hover, focus, active, disabled, error)
 - Accessibility compliance (WCAG 2.2 AA)
-- Anti-patterns (violations of Cynthia doctrine)
+- Anti-patterns (violations of Synthia™ doctrine)
 
 ### ⚠ Partially Cloned (Context Needed)
 
@@ -522,7 +522,7 @@ Fully searchable and indexable by agents.
 
 ---
 
-## Cynthia Integration
+## Synthia™ Integration
 
 Cloned design systems are automatically checked against:
 
@@ -531,7 +531,7 @@ Cloned design systems are automatically checked against:
 ✓ Spacing coherence → Validate scale ratios  
 ✓ WCAG compliance → Score ACC axis  
 ✓ Animation quality → Motion best practices  
-✓ Anti-patterns → Cynthia doctrine violations  
+✓ Anti-patterns → Synthia™ doctrine violations  
 
 All findings documented in clone output.
 

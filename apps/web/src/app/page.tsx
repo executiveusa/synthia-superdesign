@@ -131,7 +131,7 @@ function Hero() {
             marginBottom: '3rem',
           }}
         >
-          Cynthia delivers world-class design with the rigour of a top-tier agency, the
+          Synthia™ delivers world-class design with the rigour of a top-tier agency, the
           transparency of a design partner, and the speed of automation.
         </p>
 
@@ -292,7 +292,7 @@ function Positioning() {
 
   return (
     <Section id="studio" style={{ padding: '6rem 2.5rem' }}>
-      <Eyebrow>Why Cynthia</Eyebrow>
+      <Eyebrow>Why Synthia™</Eyebrow>
       <h2
         data-reveal
         data-delay="1"
@@ -443,7 +443,7 @@ function Process() {
     {
       n: '02',
       label: 'Watch the design room',
-      desc: 'Cynthia works autonomously and visibly. Monitor the creative process in real time as concepts take shape.',
+      desc: 'Synthia™ works autonomously and visibly. Monitor the creative process in real time as concepts take shape.',
     },
     {
       n: '03',
@@ -622,7 +622,7 @@ function Footer() {
               marginBottom: '0.75rem',
             }}
           >
-            CYNTHIA
+            SYNTHIA
           </p>
           <p style={{ color: '#5a5855', fontSize: '0.875rem', maxWidth: '260px', lineHeight: 1.6 }}>
             Autonomous Design Studio. World-class standards. Visible execution.
@@ -700,7 +700,7 @@ function Footer() {
         }}
       >
         <p style={{ color: '#5a5855', fontSize: '0.8125rem' }}>
-          &copy; {year} Cynthia Design Studio. All rights reserved.
+          &copy; {year} Synthia™ Studio. All rights reserved.
         </p>
         <div style={{ display: 'flex', gap: '2rem' }}>
           {['Privacy', 'Terms'].map((l) => (

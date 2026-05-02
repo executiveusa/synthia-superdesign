@@ -1,4 +1,4 @@
-# Client Portal Specification — Cynthia Design Studio
+# Client Portal Specification — Synthia™ Studio
 # Version: 1.0.0
 
 ## Overview
@@ -53,7 +53,7 @@ The client portal is where clients can:
 - Protected routes (authentication required)
 - Real-time updates via SSE (Server-Sent Events)
 - Mobile-first responsive design
-- Follows Cynthia design standards (UDEC 8.5+ for our own UI)
+- Follows Synthia™ design standards (UDEC 8.5+ for our own UI)
 
 ## Authentication
 - Email magic link (primary)

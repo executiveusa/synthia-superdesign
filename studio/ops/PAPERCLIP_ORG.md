@@ -1,10 +1,10 @@
-# Paperclip Organization — Cynthia Design Studio
+# Paperclip Organization — Synthia™ Studio
 # Version: 1.0.0
 # Date: 2026-04-04
 
 ## Company Structure
 
-Paperclip is the control plane. Cynthia is the design authority. Together they form a production-grade autonomous design company.
+Paperclip is the control plane. Synthia™ is the design authority. Together they form a production-grade autonomous design company.
 
 ## Org Chart
 

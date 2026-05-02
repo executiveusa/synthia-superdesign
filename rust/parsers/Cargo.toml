@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-parsers"
+name = "synthia-parsers"
 version.workspace = true
 edition.workspace = true
 

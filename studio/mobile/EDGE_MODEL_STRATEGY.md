@@ -1,9 +1,9 @@
-# Edge & Mobile Strategy — Cynthia Design Studio
+# Edge & Mobile Strategy — Synthia™ Studio
 # Version: 1.0.0
 
 ## Overview
 
-Cynthia supports local/edge/mobile access for operators and clients. Parts of the system can run closer to the device where useful, with cloud as the primary runtime.
+Synthia™ supports local/edge/mobile access for operators and clients. Parts of the system can run closer to the device where useful, with cloud as the primary runtime.
 
 ## Gemma 4 Integration Strategy
 

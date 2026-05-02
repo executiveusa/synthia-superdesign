@@ -31,7 +31,7 @@ Automatically generates:
 - `DESIGN.md` — Complete system documentation
 - `SKILL.md` — AI-agent executable version
 - WCAG 2.2 AA accessibility audit
-- Anti-pattern detection (Cynthia doctrine)
+- Anti-pattern detection (Synthia™ doctrine)
 - Visual token preview
 
 ### 3. **Design Tokens Export** (designlang)
@@ -70,19 +70,19 @@ cargo install synthia-clone
 
 ```bash
 # Clone everything from a website
-cynthia clone https://stripe.com
+synthia clone https://stripe.com
 
 # Clone just design tokens (faster)
-cynthia clone https://linear.app --mode design-only
+synthia clone https://linear.app --mode design-only
 
 # Full clone with all assets (larger)
-cynthia clone https://github.com --with-assets --offline
+synthia clone https://github.com --with-assets --offline
 
 # Batch clone competitors
-cynthia clone --batch competitors.txt --parallel 3
+synthia clone --batch competitors.txt --parallel 3
 
 # Save directly to studio memory
-cynthia clone https://example.com --to-memory --competitor-analysis
+synthia clone https://example.com --to-memory --competitor-analysis
 ```
 
 ---
@@ -97,7 +97,7 @@ cynthia clone https://example.com --to-memory --competitor-analysis
 **Use case**: Reference-based design, full replication
 
 ```bash
-cynthia clone https://example.com --mode full
+synthia clone https://example.com --mode full
 ```
 
 ### `--mode design-only`
@@ -108,7 +108,7 @@ cynthia clone https://example.com --mode full
 **Use case**: Competitive analysis, token reuse, accessibility audit
 
 ```bash
-cynthia clone https://example.com --mode design-only
+synthia clone https://example.com --mode design-only
 ```
 
 ### `--mode structure-only`
@@ -119,7 +119,7 @@ cynthia clone https://example.com --mode design-only
 **Use case**: Code replication, layout study
 
 ```bash
-cynthia clone https://example.com --mode structure-only
+synthia clone https://example.com --mode structure-only
 ```
 
 ### `--mode tokens-only`
@@ -130,7 +130,7 @@ cynthia clone https://example.com --mode structure-only
 **Use case**: Quick token reference, Tailwind config reuse
 
 ```bash
-cynthia clone https://example.com --mode tokens-only
+synthia clone https://example.com --mode tokens-only
 ```
 
 ---
@@ -141,64 +141,64 @@ cynthia clone https://example.com --mode tokens-only
 
 ```bash
 # Include all images, fonts, videos
-cynthia clone <url> --with-assets
+synthia clone <url> --with-assets
 
 # Create offline-ready version (embed fonts and images)
-cynthia clone <url> --offline
+synthia clone <url> --offline
 
 # Just images, not fonts
-cynthia clone <url> --images-only
+synthia clone <url> --images-only
 
 # No assets at all (smallest output)
-cynthia clone <url> --no-assets
+synthia clone <url> --no-assets
 ```
 
 ### Analysis & Validation
 
 ```bash
 # Deep analysis (library detection, perf audit, dependency graph)
-cynthia clone <url> --deep-analysis
+synthia clone <url> --deep-analysis
 
 # Full WCAG 2.2 AA accessibility audit
-cynthia clone <url> --wcag-full
+synthia clone <url> --wcag-full
 
-# Validate against Cynthia design doctrine
-cynthia clone <url> --cynthia-check
+# Validate against Synthia™ design doctrine
+synthia clone <url> --synthia-check
 
 # Format output for competitive analysis
-cynthia clone <url> --competitor-analysis
+synthia clone <url> --competitor-analysis
 ```
 
 ### Output Control
 
 ```bash
 # Custom output directory
-cynthia clone <url> --output ./my-clones/
+synthia clone <url> --output ./my-clones/
 
 # Save directly to studio memory
-cynthia clone <url> --to-memory
+synthia clone <url> --to-memory
 
 # Compress output to .zip
-cynthia clone <url> --zip
+synthia clone <url> --zip
 
 # Specific formats only (comma-separated)
-cynthia clone <url> --format json,tailwind,react
+synthia clone <url> --format json,tailwind,react
 
 # Skip cache, force re-clone
-cynthia clone <url> --skip-cache
+synthia clone <url> --skip-cache
 ```
 
 ### Batch Operations
 
 ```bash
 # Clone multiple URLs from file
-cynthia clone --batch urls.txt
+synthia clone --batch urls.txt
 
 # Parallel cloning (3 jobs at a time)
-cynthia clone --batch urls.txt --parallel 3
+synthia clone --batch urls.txt --parallel 3
 
 # Batch with output options
-cynthia clone --batch competitors.txt \
+synthia clone --batch competitors.txt \
               --output ./analysis/ \
               --competitor-analysis \
               --wcag-full
@@ -253,7 +253,7 @@ cloned-websites/stripe-com/
 │   ├── SKILL.md (AI-agent executable)
 │   ├── design-tokens.html (visual preview)
 │   ├── accessibility-report.md (WCAG 2.2 AA audit)
-│   ├── anti-patterns.md (Cynthia doctrine violations)
+│   ├── anti-patterns.md (Synthia™ doctrine violations)
 │   └── color-palette.svg (visual swatches)
 │
 ├── Analysis & Metadata
@@ -283,7 +283,7 @@ cloned-websites/stripe-com/
 Job: "Make it look like Stripe's checkout"
 
 Step 1: Clone the reference
-cynthia clone https://stripe.com --mode full
+synthia clone https://stripe.com --mode full
 
 Step 2: Extract tokens and documentation
 Output includes: SKILL.md, design-tokens.json, tailwind.config.js
@@ -296,7 +296,7 @@ Step 4: Build variations
 RALPHY builds 3 variations:
   V1: Exact match to extracted tokens
   V2: Reinterpret with different mood
-  V3: Use reference structure with Cynthia palette
+  V3: Use reference structure with Synthia™ palette
 
 Step 5: Review
 LENA scores: "V1 perfectly adheres to reference system" ✓
@@ -315,11 +315,11 @@ paypal.com
 braintree.com
 
 Step 2: Batch clone with analysis
-cynthia clone --batch competitors.txt \
+synthia clone --batch competitors.txt \
               --mode design-only \
               --competitor-analysis \
               --wcag-full \
-              --cynthia-check
+              --synthia-check
 
 Step 3: Output: 5 complete analysis packages
 Each contains:
@@ -344,7 +344,7 @@ MARCO: "Stripe uses #0055FF, Square uses #1D1D1B, Adyen uses #0055FF
 Task: Generate WCAG baseline for client's current site
 
 Step 1: Clone with WCAG focus
-cynthia clone https://client-site.com \
+synthia clone https://client-site.com \
               --mode design-only \
               --wcag-full
 
@@ -387,7 +387,7 @@ Studies: color palette, form element styles, spacing system
 
 Step 4: Ask for permission
 AGENT: "Can we use Stripe's color palette for form elements?"
-LIBRARIAN: "Yes, with these 2 Cynthia-specific modifications..."
+LIBRARIAN: "Yes, with these 2 Synthia™-specific modifications..."
 
 Step 5: Build informed
 AGENT builds using reference tokens as baseline
@@ -402,52 +402,52 @@ Result: Familiar patterns + brand-consistent styling
 
 ```bash
 # Most common: full clone
-cynthia clone https://example.com
+synthia clone https://example.com
 
 # Design tokens only (fast)
-cynthia clone https://example.com --mode design-only
+synthia clone https://example.com --mode design-only
 
 # With assets
-cynthia clone https://example.com --with-assets
+synthia clone https://example.com --with-assets
 
 # Offline version
-cynthia clone https://example.com --offline
+synthia clone https://example.com --offline
 
 # To studio memory
-cynthia clone https://example.com --to-memory
+synthia clone https://example.com --to-memory
 
 # With validation
-cynthia clone https://example.com --cynthia-check --wcag-full
+synthia clone https://example.com --synthia-check --wcag-full
 
 # Compressed output
-cynthia clone https://example.com --zip
+synthia clone https://example.com --zip
 ```
 
 ### Batch Clone
 
 ```bash
 # Basic batch
-cynthia clone --batch urls.txt
+synthia clone --batch urls.txt
 
 # Parallel (3 jobs at a time)
-cynthia clone --batch urls.txt --parallel 3
+synthia clone --batch urls.txt --parallel 3
 
 # Design tokens only
-cynthia clone --batch urls.txt --mode design-only
+synthia clone --batch urls.txt --mode design-only
 
 # Full analysis
-cynthia clone --batch urls.txt \
+synthia clone --batch urls.txt \
               --deep-analysis \
               --wcag-full \
-              --cynthia-check
+              --synthia-check
 
 # Competitive format
-cynthia clone --batch competitors.txt \
+synthia clone --batch competitors.txt \
               --competitor-analysis \
               --to-memory
 
 # Custom output
-cynthia clone --batch urls.txt \
+synthia clone --batch urls.txt \
               --output ./competitive-analysis/ \
               --format json,tailwind
 ```
@@ -568,9 +568,9 @@ npm install -g designlang puppeteer design-md-chrome
 
 ---
 
-## Cynthia Doctrine Integration
+## Synthia™ Doctrine Integration
 
-Clones are automatically validated against Cynthia doctrine:
+Clones are automatically validated against Synthia™ doctrine:
 
 ✓ **No banned fonts** → Flag if: Inter, Roboto, Arial, Helvetica, Open Sans, Montserrat, Poppins, Lato  
 ✓ **Color discipline** → Suggest constraints if palette > 8 colors  
@@ -579,7 +579,7 @@ Clones are automatically validated against Cynthia doctrine:
 ✓ **Animation quality** → Motion best practices (no jank, prefers-reduced-motion)  
 ✓ **Anti-patterns** → Flag violations of design laws  
 
-Use `--cynthia-check` flag to enable validation.
+Use `--synthia-check` flag to enable validation.
 
 ---
 
@@ -626,7 +626,7 @@ Solution:
 ## Next Steps
 
 1. **Install** — `npm install -g designlang puppeteer`
-2. **Test** — `cynthia clone https://stripe.com --mode design-only`
+2. **Test** — `synthia clone https://stripe.com --mode design-only`
 3. **Review** — Check generated DESIGN.md and tokens
 4. **Archive** — Move to studio/memory/cloned-websites/
 5. **Reuse** — Reference in future design jobs

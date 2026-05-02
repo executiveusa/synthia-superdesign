@@ -12,13 +12,13 @@ CLONE is the unified, all-in-one feature for:
 2. **Extracting design systems** — Colors, typography, spacing, animations
 3. **Generating design tokens** — 8 different export formats (Tailwind, React, JSON, YAML, CSS vars, etc.)
 4. **Auditing accessibility** — WCAG 2.2 AA compliance scoring
-5. **Detecting anti-patterns** — Cynthia doctrine validation
+5. **Detecting anti-patterns** — Synthia™ doctrine validation
 6. **Managing assets** — Images, fonts, videos, SVGs
 
 All in one simple command:
 
 ```bash
-cynthia clone https://example.com
+synthia clone https://example.com
 ```
 
 ---
@@ -47,31 +47,31 @@ cynthia clone https://example.com
 
 ### Clone a SaaS Product
 ```bash
-cynthia clone https://stripe.com
+synthia clone https://stripe.com
 # Output: HTML + CSS + JS + design tokens + WCAG report
 ```
 
 ### Clone Design Tokens Only (Fast)
 ```bash
-cynthia clone https://linear.app --mode design-only
+synthia clone https://linear.app --mode design-only
 # Output: 8 token formats (JSON, Tailwind, React, YAML, CSS vars, etc.)
 ```
 
 ### Batch Clone Competitors
 ```bash
-cynthia clone --batch competitors.txt --parallel 3
+synthia clone --batch competitors.txt --parallel 3
 # Clones multiple sites simultaneously
 ```
 
 ### Clone with All Assets
 ```bash
-cynthia clone https://example.com --with-assets --offline
+synthia clone https://example.com --with-assets --offline
 # Includes images, fonts, videos + offline-ready version
 ```
 
 ### Save to Studio Memory
 ```bash
-cynthia clone https://example.com --to-memory --competitor-analysis
+synthia clone https://example.com --to-memory --competitor-analysis
 # Automatically organized in studio/memory/cloned-websites/
 ```
 
@@ -79,7 +79,7 @@ cynthia clone https://example.com --to-memory --competitor-analysis
 
 ## What You Get
 
-After running `cynthia clone https://stripe.com`, you get:
+After running `synthia clone https://stripe.com`, you get:
 
 ```
 stripe-com/
@@ -99,7 +99,7 @@ stripe-com/
 ├── design-tokens.html (visual preview)
 │
 ├── accessibility-report.md (WCAG 2.2 AA audit)
-├── anti-patterns.md (Cynthia doctrine violations)
+├── anti-patterns.md (Synthia™ doctrine violations)
 ├── color-palette.svg (visual swatches)
 │
 ├── clone-manifest.json (metadata)
@@ -119,7 +119,7 @@ stripe-com/
 ```
 Job: "Make it look like Stripe"
 
-1. cynthia clone https://stripe.com --mode full
+1. synthia clone https://stripe.com --mode full
 2. Imports tailwind.config.js + theme.ts
 3. Studies SKILL.md for design patterns
 4. Builds 3 variations, V1 exactly matches extracted tokens
@@ -130,7 +130,7 @@ Job: "Make it look like Stripe"
 ```
 Task: Analyze top 5 payment processors
 
-1. cynthia clone --batch payments.txt --competitor-analysis --wcag-full
+1. synthia clone --batch payments.txt --competitor-analysis --wcag-full
 2. Gets 5 complete analysis packages (design systems + WCAG scores)
 3. Documents findings: "Stripe uses #0055FF, Square uses #1D1D1B..."
 4. Archives in studio/memory/cloned-websites/competitive-analysis/
@@ -141,7 +141,7 @@ Task: Analyze top 5 payment processors
 ```
 Task: Audit client's current site for accessibility
 
-1. cynthia clone https://client-site.com --wcag-full
+1. synthia clone https://client-site.com --wcag-full
 2. Reviews accessibility-report.md (WCAG scores, failures, fixes)
 3. Scores ACC axis using detailed audit
 4. Documents baseline: "Before: 5.2/10, Target: 8.5/10"
@@ -152,7 +152,7 @@ Task: Audit client's current site for accessibility
 ```
 Task: Create brief with reference system
 
-1. cynthia clone https://reference-site.com --mode design-only
+1. synthia clone https://reference-site.com --mode design-only
 2. Attaches SKILL.md to design brief
 3. Notes: "Match reference color palette in V1"
 4. RALPHY receives pre-extracted tokens
@@ -179,7 +179,7 @@ Task: Create brief with reference system
 npm install -g designlang puppeteer
 
 # Then use
-cynthia clone https://example.com
+synthia clone https://example.com
 ```
 
 Or via Docker:
@@ -218,7 +218,7 @@ docker run -v ~/clones:/output synthia-clone https://stripe.com
 
 ✅ **Validation & Audit**
 - WCAG 2.2 AA compliance
-- Cynthia doctrine checking
+- Synthia™ doctrine checking
 - Anti-pattern detection
 - Library identification
 - Performance metrics
@@ -281,7 +281,7 @@ docker run -v ~/clones:/output synthia-clone https://stripe.com
 ## Next Steps
 
 1. **Install** → `npm install -g designlang puppeteer`
-2. **Test** → `cynthia clone https://stripe.com --mode design-only`
+2. **Test** → `synthia clone https://stripe.com --mode design-only`
 3. **Review** → Check generated DESIGN.md and tokens
 4. **Archive** → Save to studio/memory/cloned-websites/
 5. **Reuse** → Reference in future design jobs
@@ -320,6 +320,6 @@ A: Verify copyright/license. Use for reference, not direct publication.
 
 ---
 
-**Start cloning:** `cynthia clone https://example.com`
+**Start cloning:** `synthia clone https://example.com`
 
 See full documentation: `studio/ops/CLONE-FEATURE-GUIDE.md`

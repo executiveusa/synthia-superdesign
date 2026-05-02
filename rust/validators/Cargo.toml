@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-validator"
+name = "synthia-validator"
 version.workspace = true
 edition.workspace = true
 

@@ -1,9 +1,9 @@
-# Memory Model — Cynthia Design Studio
+# Memory Model — Synthia™ Studio
 # Version: 1.0.0
 
 ## What Memory Means
 
-Cynthia's memory is the system by which the studio gets smarter with every project.
+Synthia™'s memory is the system by which the studio gets smarter with every project.
 It is NOT a RAG database. It is layered, scoped, and purposeful.
 
 ## Memory Layers

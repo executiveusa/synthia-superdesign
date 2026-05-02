@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-bridges"
+name = "synthia-bridges"
 version.workspace = true
 edition.workspace = true
 

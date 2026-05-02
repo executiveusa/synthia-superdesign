@@ -1,15 +1,15 @@
 # Why This Plan Works — Revenue & Business Reasoning
-# The Pauli Effect™ / Cynthia Design Studio
+# The Pauli Effect™ / Synthia™ Studio
 
 ---
 
 ## Executive Summary
 
-Cynthia is an autonomous AI design studio that produces premium web design at scale, with built-in quality control that exceeds what most human agencies deliver. The business model works because it solves three problems simultaneously:
+Synthia™ is an autonomous AI design studio that produces premium web design at scale, with built-in quality control that exceeds what most human agencies deliver. The business model works because it solves three problems simultaneously:
 
 1. **For clients**: Premium design quality at agency prices, delivered in hours instead of weeks, with full transparency.
 2. **For the studio**: Near-zero marginal cost per project after infrastructure investment, creating a software-like margin structure on a services business.
-3. **For the market**: No autonomous design studio currently operates with verifiable quality standards. Cynthia is first.
+3. **For the market**: No autonomous design studio currently operates with verifiable quality standards. Synthia™ is first.
 
 ---
 
@@ -61,7 +61,7 @@ These are conservative. The audit funnel compounds — satisfied clients refer.
 ## Why It Works as a Business
 
 ### 1. Software Margins on Service Revenue
-Traditional design agencies operate at 30-40% margins because humans are expensive and slow. Cynthia's agents cost ~$0.50-$5.00 in LLM tokens per project iteration. At $3,000-$10,000 per project, margins are 75-85%. This is SaaS-level margin on services revenue.
+Traditional design agencies operate at 30-40% margins because humans are expensive and slow. Synthia™'s agents cost ~$0.50-$5.00 in LLM tokens per project iteration. At $3,000-$10,000 per project, margins are 75-85%. This is SaaS-level margin on services revenue.
 
 ### 2. Quality is Verifiable and Consistent
 The UDEC framework is not marketing — it's a machine-readable scoring system with 14 axes, weighted scoring, and hard blockers. Clients can see their score. It's transparent and repeatable. This eliminates the "is it any good?" question that plagues every agency.
@@ -142,7 +142,7 @@ This is not a wrapper around GPT-4 with a nice UI. This is an operating system f
 
 ## The Bottom Line
 
-Cynthia is a design studio that operates like a software company:
+Synthia™ is a design studio that operates like a software company:
 - **Marginal cost**: Near-zero per additional project
 - **Quality**: Machine-verified, not opinion-based
 - **Speed**: Architectural, not aspirational

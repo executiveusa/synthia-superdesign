@@ -1,9 +1,9 @@
-# Free Audit Flow — Cynthia Design Studio
+# Free Audit Flow — Synthia™ Studio
 # Version: 1.0.0
 
 ## Overview
 
-The free site audit is Cynthia's primary lead generation mechanism. It demonstrates the studio's capability by delivering real value before asking for payment.
+The free site audit is Synthia™'s primary lead generation mechanism. It demonstrates the studio's capability by delivering real value before asking for payment.
 
 ## Input
 
@@ -167,7 +167,7 @@ Comprehensive redesign with cinematic quality standards.
 
 ---
 
-Audit by Cynthia Design Studio
+Audit by Synthia™ Studio
 The Pauli Effect™
 ```
 

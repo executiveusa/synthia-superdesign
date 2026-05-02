@@ -1,4 +1,4 @@
-# Delivery & Release Rules — Cynthia Design Studio
+# Delivery & Release Rules — Synthia™ Studio
 # Version: 1.0.0
 
 ## Delivery Gating

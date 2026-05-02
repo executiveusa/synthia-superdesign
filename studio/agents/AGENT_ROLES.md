@@ -1,10 +1,10 @@
-# Cynthia Agent Roles
+# Synthia™ Agent Roles
 # Version: 1.0.0
 # Date: 2026-04-04
 
 ## Agent Architecture
 
-Cynthia operates 12 specialized agents. Each has a clear scope, defined inputs/outputs, and explicit constraints.
+Synthia™ operates 12 specialized agents. Each has a clear scope, defined inputs/outputs, and explicit constraints.
 
 ---
 

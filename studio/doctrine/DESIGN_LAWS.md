@@ -1,4 +1,4 @@
-# Cynthia Design Laws
+# Synthia™ Design Laws
 # Version: 1.0.0
 # Authority: CANONICAL — Do not modify without version bump
 # Sources: Refactoring UI (Wathan/Schoger), Don't Make Me Think (Krug),

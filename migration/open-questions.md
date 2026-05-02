@@ -1,4 +1,4 @@
-# Open Questions — Cynthia Migration
+# Open Questions — Synthia™ Migration
 # Track unresolved decisions
 
 ---
@@ -8,7 +8,7 @@
 **Resolution**: Hermes config at `.hermes/config.yaml` already reads `${TELEGRAM_BOT_TOKEN}` and `${TELEGRAM_CHAT_ID}` from environment. The architecture is wired — only the actual values are missing.
 
 **Action items (Bambu)**:
-1. Open Telegram → search `@BotFather` → `/newbot` → name it `CynthiaStudioBot`
+1. Open Telegram → search `@BotFather` → `/newbot` → name it `Synthia™StudioBot`
 2. Copy the bot token (format: `123456789:ABCdefGHIjklMNOpqrsTUVwxyz`)
 3. Send any message to the bot, then visit `https://api.telegram.org/bot<TOKEN>/getUpdates` to find your `chat_id`
 4. Store both in Infisical (project `synthia-3`, env `prod`):
@@ -72,10 +72,10 @@
 **Architecture**:
 - **Client deliverables**: Vercel preview deployments → client portal link → promote to production on approval
 - **Studio landing page**: Vercel project under `the-pauli-effect` org
-- **Domain**: Use `thepaulieffect.com` or `cynthia.studio` — configure in Vercel Domains settings
+- **Domain**: Use `thepaulieffect.com` or `synthia.studio` — configure in Vercel Domains settings
 
 **Action items (Bambu)**:
-1. Purchase domain (suggestion: `cynthia.studio` or `cynthia.design`)
+1. Purchase domain (suggestion: `synthia.studio` or `synthia.design`)
 2. In Vercel → Project Settings → Domains → Add custom domain
 3. Update DNS (Vercel provides the records)
 
@@ -134,7 +134,7 @@
    ```
 3. Clone the repo:
    ```bash
-   git clone https://github.com/executiveusa/synthia-superdesign.git /opt/cynthia-studio
+   git clone https://github.com/executiveusa/synthia-superdesign.git /opt/synthia-studio
    ```
 4. Set environment variables (from Infisical):
    ```bash

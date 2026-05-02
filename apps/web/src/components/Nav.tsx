@@ -52,7 +52,7 @@ export default function Nav() {
           textDecoration: 'none',
         }}
       >
-        CYNTHIA
+        SYNTHIA
       </a>
 
       {/* Desktop nav */}

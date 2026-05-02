@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-indexer"
+name = "synthia-indexer"
 version.workspace = true
 edition.workspace = true
 

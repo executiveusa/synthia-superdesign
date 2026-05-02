@@ -18,11 +18,11 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Cynthia — Autonomous Design Studio',
+  title: 'Synthia™ — Autonomous Design Studio',
   description:
     'Your website should feel like your best product. World-class design standards. Visible execution. Premium outcomes. Start with a free site audit.',
   openGraph: {
-    title: 'Cynthia — Autonomous Design Studio',
+    title: 'Synthia™ — Autonomous Design Studio',
     description: 'World-class design. Visible execution. Premium outcomes.',
     type: 'website',
   },

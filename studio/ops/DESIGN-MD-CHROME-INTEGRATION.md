@@ -1,11 +1,11 @@
 # Design MD Chrome Integration Guide
-## For Cynthia Design Studio Agents
+## For Synthia™ Studio Agents
 
 ---
 
 ## Overview
 
-Design MD Chrome is now a **first-class tool in the Cynthia design system**. It's available to all agents for automated design token extraction, competitive analysis, and accessibility auditing.
+Design MD Chrome is now a **first-class tool in the Synthia™ design system**. It's available to all agents for automated design token extraction, competitive analysis, and accessibility auditing.
 
 **Key benefit**: Reduces manual design system documentation from 2–3 hours to 15 minutes.
 
@@ -87,7 +87,7 @@ Reference Tokens: Extracted via Design MD Chrome
 Builder Instructions:
 - Variation V1: Match reference tokens exactly
 - Variation V2: Reinterpret tokens with different mood
-- Variation V3: Use reference structure, Cynthia palette
+- Variation V3: Use reference structure, Synthia™ palette
 ```
 
 ### Pattern 2: Competitive Analysis (Marco / Lena)
@@ -176,35 +176,35 @@ studio/memory/competitive-analysis/
 - [ ] Design Librarian reviews first 3 extractions for accuracy
 - [ ] SKILL.md generation tested with 5 different sites
 - [ ] WCAG report generation tested and validated against axe-core
-- [ ] CLI command `cynthia extract` implemented and documented
+- [ ] CLI command `synthia extract` implemented and documented
 - [ ] Agents briefed: "Design MD Chrome is now available for all jobs"
 
 ---
 
-## CLI Integration: `cynthia extract`
+## CLI Integration: `synthia extract`
 
 ### New Command Proposal
 
 ```bash
 # Extract design tokens from a URL and generate SKILL.md
-cynthia extract --url https://example.com --output ./extracted/
+synthia extract --url https://example.com --output ./extracted/
 
-# Extract with custom anti-pattern rules (Cynthia doctrine)
-cynthia extract --url https://example.com \
+# Extract with custom anti-pattern rules (Synthia™ doctrine)
+synthia extract --url https://example.com \
                  --rules studio/anti-patterns/registry.yaml \
                  --output ./extracted/
 
 # Generate WCAG report instead of DESIGN.md
-cynthia extract --url https://example.com \
+synthia extract --url https://example.com \
                  --mode wcag \
                  --output ./audits/
 
 # Batch extract from a list
-cynthia extract --batch competitors.txt \
+synthia extract --batch competitors.txt \
                  --output studio/memory/competitive-analysis/
 
 # Quick comparison: extract two sites and diff their token sets
-cynthia extract:diff --url1 https://site-a.com \
+synthia extract:diff --url1 https://site-a.com \
                      --url2 https://site-b.com
 ```
 
@@ -266,7 +266,7 @@ extraction_method: design-md-chrome v2.1
 ## Compliance
 - WCAG: Pass / Fail
 - Design law violations: [list]
-- Cynthia anti-pattern flags: [list]
+- Synthia™ anti-pattern flags: [list]
 
 ## Utility
 - Useful for: [types of projects]
@@ -421,7 +421,7 @@ Solution:
 1. **Immediate**: Install extension locally, test on 3 sites
 2. **Week 1**: Run first competitive analysis (Stripe, Linear, Figma)
 3. **Week 2**: Integrate into first reference-based design job
-4. **Week 3**: Implement `cynthia extract` CLI command
+4. **Week 3**: Implement `synthia extract` CLI command
 5. **Month 1**: Evaluate with team, refine workflows, document learnings
 
 ---

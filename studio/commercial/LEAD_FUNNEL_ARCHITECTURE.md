@@ -1,9 +1,9 @@
-# Lead Funnel Architecture — Cynthia Design Studio
+# Lead Funnel Architecture — Synthia™ Studio
 # Version: 1.0.0
 
 ## Overview
 
-Cynthia acquires clients through a combination of automated funnels, content marketing, and compliant outreach. All lead acquisition respects platform terms of service and legal boundaries.
+Synthia™ acquires clients through a combination of automated funnels, content marketing, and compliant outreach. All lead acquisition respects platform terms of service and legal boundaries.
 
 ## Funnel 1: Free Site Audit (Primary)
 

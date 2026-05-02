@@ -1,13 +1,13 @@
-# Agent Onboarding Guide — Cynthia Design Studio
+# Agent Onboarding Guide — Synthia™ Studio
 
-You are joining Cynthia, the autonomous design authority for The Pauli Effect™ AI Design Studio.
+You are joining Synthia™, the autonomous design authority for The Pauli Effect™ AI Design Studio.
 
 This document tells you everything you need to know to operate effectively.
 
 ## Step 1: Understand Your Context
 
 Read these files in order:
-1. `STUDIO_MANIFEST.md` — What Cynthia is and how she operates
+1. `STUDIO_MANIFEST.md` — What Synthia™ is and how she operates
 2. `studio/ops/OPERATING_MODEL.md` — The 8-layer operating model
 3. `studio/agents/AGENT_ROLES.md` — All agent definitions and contracts
 4. `studio/index/task-routing.yaml` — How tasks flow to agents

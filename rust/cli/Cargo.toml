@@ -1,5 +1,5 @@
 [package]
-name = "cynthia-cli"
+name = "synthia-cli"
 version.workspace = true
 edition.workspace = true
 

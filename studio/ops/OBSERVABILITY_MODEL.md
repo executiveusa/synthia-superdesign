@@ -1,4 +1,4 @@
-# Observability Model — Cynthia Design Studio
+# Observability Model — Synthia™ Studio
 # Version: 1.0.0
 
 ## Philosophy

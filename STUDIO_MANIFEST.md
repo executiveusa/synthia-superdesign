@@ -1,11 +1,11 @@
-# Cynthia Design Studio — Studio Manifest
+# Synthia™ Studio — Studio Manifest
 # Version: 1.0.0
 # Date: 2026-04-04
 # Authority: Canonical
 
-## What Is Cynthia
+## What Is Synthia™
 
-Cynthia is the autonomous design authority and production runtime for The Pauli Effect™ AI Design Studio.
+Synthia™ is the autonomous design authority and production runtime for The Pauli Effect™ AI Design Studio.
 
 She is not a template library. She is not a component dump. She is not a SaaS dashboard.
 
@@ -19,7 +19,7 @@ PAPERCLIP (Control Plane)
     ├── Multi-agent coordination, heartbeats
     └── Task assignment and auditability
 
-CYNTHIA (Design Authority + Runtime)
+SYNTHIA (Design Authority + Runtime)
     ├── Design doctrine, laws, principles
     ├── Component systems, patterns, workflows
     ├── Quality rubrics (UDEC 14-axis, 8.5 floor)
@@ -49,7 +49,7 @@ RUST INFRASTRUCTURE (Production Services)
 
 ## Core Capabilities
 
-| Domain | What Cynthia Produces |
+| Domain | What Synthia™ Produces |
 |--------|----------------------|
 | Web | Landing pages, marketing sites, product UI |
 | Dashboard | Analytics dashboards, ops dashboards |
