@@ -18,6 +18,50 @@ const NAV = [
     ),
   },
   {
+    href: '/dashboard/alex',
+    label: 'Agent Alex',
+    exact: false,
+    highlight: true,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <path d="M7 1L9 5L13 5.5L10 8.5L11 13L7 11L3 13L4 8.5L1 5.5L5 5L7 1Z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    href: '/dashboard/agents',
+    label: 'Core Agents',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <circle cx="7" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    href: '/dashboard/anime',
+    label: 'Anime Mode',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <circle cx="5" cy="5" r="1.5" stroke="currentColor" strokeWidth="1.2"/>
+        <circle cx="9" cy="5" r="1.5" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M4 9c0 1.5 1.5 3 3 3s3-1.5 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    href: '/dashboard/generative',
+    label: 'Generative AI',
+    exact: false,
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+        <path d="M7 1v3M7 10v3M1 7h3M10 7h3M2.5 2.5l2 2M9.5 9.5l2 2M2.5 11.5l2-2M9.5 4.5l2-2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
     href: '/dashboard/repos',
     label: 'Repositories',
     exact: false,
@@ -25,17 +69,6 @@ const NAV = [
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
         <path d="M2 2h10M2 7h10M2 12h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
         <circle cx="11" cy="12" r="2" stroke="currentColor" strokeWidth="1.2"/>
-      </svg>
-    ),
-  },
-  {
-    href: '/dashboard/agents',
-    label: 'Agents',
-    exact: false,
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-        <circle cx="7" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
-        <path d="M1.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     ),
   },
@@ -153,8 +186,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <p style={{ fontSize: '0.5625rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#3a3835', padding: '0 0.625rem', marginBottom: '0.5rem' }}>
             Navigation
           </p>
-          {NAV.map(({ href, label, exact, icon }) => {
+          {NAV.map(({ href, label, exact, icon, highlight }) => {
             const active = exact ? pathname === href : (pathname?.startsWith(href) && !(exact && pathname !== href))
+            const isAlex = highlight && !active
             return (
               <Link
                 key={href}
@@ -166,8 +200,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   padding: '0.5625rem 0.625rem',
                   borderRadius: '6px',
                   textDecoration: 'none',
-                  color: active ? '#f0ede6' : '#5a5855',
-                  background: active ? 'rgba(201,169,110,0.08)' : 'transparent',
+                  color: active ? '#f0ede6' : isAlex ? '#ff6b35' : '#5a5855',
+                  background: active ? 'rgba(201,169,110,0.08)' : isAlex ? 'rgba(255,107,53,0.08)' : 'transparent',
                   fontSize: '0.8125rem',
                   letterSpacing: '0.01em',
                   marginBottom: '1px',
@@ -175,7 +209,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   position: 'relative',
                 }}
               >
-                <span style={{ color: active ? '#c9a96e' : 'currentColor', flexShrink: 0 }}>
+                <span style={{ color: active ? '#c9a96e' : isAlex ? '#ff6b35' : 'currentColor', flexShrink: 0 }}>
                   {icon}
                 </span>
                 <span>{label}</span>
@@ -187,6 +221,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     height: '4px',
                     borderRadius: '50%',
                     background: '#c9a96e',
+                  }} />
+                )}
+                {isAlex && (
+                  <div style={{
+                    position: 'absolute',
+                    right: '0.625rem',
+                    width: '4px',
+                    height: '4px',
+                    borderRadius: '50%',
+                    background: '#ff6b35',
+                    boxShadow: '0 0 6px rgba(255,107,53,0.5)',
                   }} />
                 )}
               </Link>

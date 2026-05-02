@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { AGENTS } from '@/lib/studio-config'
+import { AGENT_ALEX } from '@/lib/agent-alex'
 
 const C = {
   border: 'rgba(255,255,255,0.07)',
@@ -70,6 +71,73 @@ export default function AgentsPage() {
           </div>
         ))}
       </div>
+
+      {/* Agent Alex - Master Orchestrator */}
+      <Link href="/dashboard/alex" style={{ textDecoration: 'none', display: 'block', marginBottom: '1.5rem' }}>
+        <div style={{
+          background: 'rgba(255,107,53,0.06)',
+          border: '1px solid rgba(255,107,53,0.2)',
+          borderRadius: '12px',
+          padding: '1.5rem',
+          position: 'relative',
+          overflow: 'hidden',
+          transition: 'all 150ms ease',
+        }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+            background: 'linear-gradient(90deg, transparent, #ff6b35, transparent)',
+          }} />
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.375rem' }}>
+                <div style={{
+                  width: '10px', height: '10px', borderRadius: '50%',
+                  background: C.success, boxShadow: `0 0 8px ${C.success}88`,
+                }} />
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 400, color: C.text, letterSpacing: '0.02em' }}>
+                  {AGENT_ALEX.name}
+                </h3>
+                <span style={{
+                  fontSize: '0.5625rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+                  padding: '0.2rem 0.5rem', borderRadius: '3px',
+                  background: 'rgba(255,107,53,0.15)', color: '#ff6b35',
+                }}>
+                  {AGENT_ALEX.class}
+                </span>
+              </div>
+              <p style={{ fontSize: '0.75rem', color: '#ff6b35', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                {AGENT_ALEX.role}
+              </p>
+            </div>
+            <div style={{
+              padding: '0.375rem 0.75rem', borderRadius: '100px',
+              background: 'rgba(255,107,53,0.1)', border: '1px solid rgba(255,107,53,0.2)',
+              fontSize: '0.6875rem', color: '#ff6b35',
+            }}>
+              Open Control Panel
+            </div>
+          </div>
+          <p style={{ fontSize: '0.875rem', color: C.muted, lineHeight: 1.6, marginBottom: '1rem' }}>
+            {AGENT_ALEX.scope}
+          </p>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {AGENT_ALEX.capabilities.slice(0, 4).map(cap => (
+              <span key={cap} style={{
+                padding: '0.25rem 0.5rem', borderRadius: '4px',
+                background: 'rgba(255,255,255,0.05)', fontSize: '0.6875rem', color: C.dim,
+              }}>
+                {cap}
+              </span>
+            ))}
+            <span style={{
+              padding: '0.25rem 0.5rem', borderRadius: '4px',
+              background: 'rgba(255,255,255,0.05)', fontSize: '0.6875rem', color: C.dim,
+            }}>
+              +{AGENT_ALEX.capabilities.length - 4} more
+            </span>
+          </div>
+        </div>
+      </Link>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
         {AGENTS.map(agent => {
