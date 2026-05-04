@@ -261,7 +261,7 @@ export default function WorldsPage() {
                 <span style={{ fontSize: '0.8125rem', color: C.success }}>World generated</span>
               </div>
 
-              {result.outputDataUrl && (
+              {result.outputDataUrl != null && (
                 <video
                   src={result.outputDataUrl as string} autoPlay loop muted playsInline controls
                   style={{ width: '100%', display: 'block', maxHeight: '260px', objectFit: 'cover' }}
@@ -276,15 +276,15 @@ export default function WorldsPage() {
                 <p style={{ fontSize: '0.75rem', color: C.muted, marginBottom: '0.375rem' }}>
                   <span style={{ color: C.dim }}>Model:</span> {result.model as string}
                 </p>
-                {result.contentType && (
+                {result.contentType != null && (
                   <p style={{ fontSize: '0.75rem', color: C.muted }}>
                     <span style={{ color: C.dim }}>Format:</span> {result.contentType as string}
                   </p>
                 )}
-                {result.note && (
+                {result.note != null && (
                   <p style={{ fontSize: '0.75rem', color: C.muted, marginTop: '0.75rem', lineHeight: 1.5 }}>{result.note as string}</p>
                 )}
-                {result.outputDataUrl && (
+                {result.outputDataUrl != null && (
                   <a
                     href={result.outputDataUrl as string}
                     download={`world-${Date.now()}.mp4`}

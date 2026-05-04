@@ -344,7 +344,7 @@ export default function VideoPage() {
                       {String(result.status ?? 'queued')}
                     </span>
                   </div>
-                  {result.predictionId && (
+                  {result.predictionId != null && (
                     <p style={{ fontSize: '0.6875rem', color: C.dim, fontFamily: 'monospace', marginBottom: '0.375rem', wordBreak: 'break-all' }}>
                       ID: {String(result.predictionId)}
                     </p>
