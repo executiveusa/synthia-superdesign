@@ -1,36 +1,47 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { Playfair_Display, DM_Mono, Lato } from 'next/font/google'
 import './globals.css'
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['300', '400', '600'],
+  weight: ['400', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  variable: '--font-playfair',
   display: 'swap',
 })
 
-const dmSans = DM_Sans({
+const dmMono = DM_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
-  variable: '--font-dm-sans',
+  variable: '--font-dm-mono',
+  display: 'swap',
+})
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-lato',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Cynthia — Autonomous Design Studio',
+  title: 'Synthia™ — Tu IA. Tu datos. Tu negocio.',
   description:
-    'Your website should feel like your best product. World-class design standards. Visible execution. Premium outcomes. Start with a free site audit.',
+    'Synthia™ es tu estudio de IA soberano. Crea imágenes, videos, contenido y más — con tus propias herramientas, tus propios datos.',
   openGraph: {
-    title: 'Cynthia — Autonomous Design Studio',
-    description: 'World-class design. Visible execution. Premium outcomes.',
+    title: 'Synthia™ — Tu IA. Tu datos. Tu negocio.',
+    description: 'Estudio de IA soberano para creadores latinoamericanos.',
     type: 'website',
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="es"
+      className={`${playfair.variable} ${dmMono.variable} ${lato.variable}`}
+      style={{ background: 'var(--color-dark)' }}
+    >
       <body>{children}</body>
     </html>
   )
