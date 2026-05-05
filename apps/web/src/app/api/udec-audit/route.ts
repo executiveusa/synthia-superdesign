@@ -9,8 +9,10 @@ const AXES = [
   'Conversion Optimization', 'Accessibility',
 ]
 
-const AUDIT_PROMPT = `You are a UDEC design auditor for Synthia™. Score this website on these 14 axes (0-10 each):
+const AUDIT_PROMPT = (hasScreenshot: boolean) =>
+  `You are a UDEC design auditor for Synthia™. Score this website on these 14 axes (0-10 each):
 ${AXES.join(', ')}.
+${hasScreenshot ? 'You have a screenshot of the site. Use it for visual scoring.' : 'You only have text metadata — make reasonable inferences.'}
 
 Return JSON only:
 {
@@ -19,6 +21,32 @@ Return JSON only:
   "top_issues": ["issue 1", "issue 2", "issue 3"],
   "quick_wins": ["quick win 1", "quick win 2", "quick win 3"]
 }`
+
+async function captureScreenshot(url: string): Promise<string | null> {
+  const key = process.env.SCREENSHOTONE_KEY
+  if (!key) return null
+  try {
+    const params = new URLSearchParams({
+      access_key: key,
+      url,
+      viewport_width: '1440',
+      viewport_height: '900',
+      format: 'jpg',
+      image_quality: '80',
+      full_page: 'false',
+      block_ads: 'true',
+      block_cookie_banners: 'true',
+    })
+    const r = await fetch(`https://api.screenshotone.com/take?${params}`, {
+      signal: AbortSignal.timeout(20000),
+    })
+    if (!r.ok) return null
+    const buffer = await r.arrayBuffer()
+    return Buffer.from(buffer).toString('base64')
+  } catch {
+    return null
+  }
+}
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'anon'
@@ -31,39 +59,53 @@ export async function POST(req: NextRequest) {
   }
 
   const { url } = await req.json() as { url: string }
-
   if (!url) return NextResponse.json({ error: 'URL required' }, { status: 400 })
 
-  // In production: capture screenshot via Puppeteer or screenshot API
-  // For now: do a text-based analysis via fetch
   try {
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-    let siteContent = ''
-    try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(8000) })
-      const html = await r.text()
-      const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] || ''
-      const desc = html.match(/name="description" content="([^"]+)"/i)?.[1] || ''
-      const hasMobile = html.includes('viewport')
-      const hasSSL = url.startsWith('https')
-      siteContent = `URL: ${url}\nTitle: ${title}\nMeta description: ${desc || 'missing'}\nMobile viewport: ${hasMobile}\nHTTPS: ${hasSSL}\nPage size estimate: ${(html.length / 1024).toFixed(0)}KB`
-    } catch {
-      siteContent = `URL: ${url}\nCould not fetch page content.`
+    // Try screenshot first, fall back to HTML text analysis
+    const screenshotBase64 = await captureScreenshot(url)
+    const screenshotUsed = screenshotBase64 !== null
+
+    let messageContent: Anthropic.MessageParam['content']
+
+    if (screenshotUsed) {
+      messageContent = [
+        {
+          type: 'image',
+          source: { type: 'base64', media_type: 'image/jpeg', data: screenshotBase64! },
+        },
+        { type: 'text', text: AUDIT_PROMPT(true) },
+      ]
+    } else {
+      // Text fallback — fetch HTML signals
+      let siteContent = ''
+      try {
+        const r = await fetch(url, { signal: AbortSignal.timeout(8000) })
+        const html = await r.text()
+        const title = html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] || ''
+        const desc = html.match(/name="description" content="([^"]+)"/i)?.[1] || ''
+        const hasMobile = html.includes('viewport')
+        const hasSSL = url.startsWith('https')
+        const h1s = (html.match(/<h1[^>]*>/gi) || []).length
+        const images = (html.match(/<img[^>]*>/gi) || []).length
+        siteContent = `URL: ${url}\nTitle: ${title}\nMeta description: ${desc || 'missing'}\nMobile viewport: ${hasMobile}\nHTTPS: ${hasSSL}\nH1 tags: ${h1s}\nImages: ${images}\nPage size: ${(html.length / 1024).toFixed(0)}KB`
+      } catch {
+        siteContent = `URL: ${url}\nCould not fetch page content.`
+      }
+      messageContent = `${AUDIT_PROMPT(false)}\n\nSite info:\n${siteContent}`
     }
 
     const res = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1024,
-      messages: [{
-        role: 'user',
-        content: `${AUDIT_PROMPT}\n\nSite info:\n${siteContent}`,
-      }],
+      messages: [{ role: 'user', content: messageContent }],
     })
 
     const text = res.content[0].type === 'text' ? res.content[0].text : '{}'
     const parsed = JSON.parse(text.replace(/```json|```/g, '').trim())
-    return NextResponse.json({ url, ...parsed })
+    return NextResponse.json({ url, screenshot_used: screenshotUsed, ...parsed })
   } catch (err) {
     return NextResponse.json({ error: err instanceof Error ? err.message : 'Audit failed' }, { status: 500 })
   }

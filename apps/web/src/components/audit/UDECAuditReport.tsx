@@ -6,6 +6,7 @@ interface AuditResult {
   overall: number
   top_issues: string[]
   quick_wins: string[]
+  screenshot_used?: boolean
 }
 
 export default function UDECAuditReport({ result }: { result: AuditResult }) {
@@ -28,7 +29,18 @@ export default function UDECAuditReport({ result }: { result: AuditResult }) {
           <text x="50" y="62" textAnchor="middle" fill="var(--color-muted)" fontSize="9" fontFamily="var(--font-mono)">/10 UDEC</text>
         </svg>
         <div>
-          <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.25rem', color: 'var(--color-text)', marginBottom: '0.25rem' }}>Reporte UDEC</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.25rem', color: 'var(--color-text)' }}>Reporte UDEC</div>
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: '0.5625rem', letterSpacing: '0.08em',
+              padding: '0.125rem 0.5rem', borderRadius: '999px',
+              background: result.screenshot_used ? 'rgba(90,122,82,0.12)' : 'rgba(196,150,60,0.12)',
+              color: result.screenshot_used ? '#5a7a52' : '#c4963c',
+              border: `1px solid ${result.screenshot_used ? 'rgba(90,122,82,0.3)' : 'rgba(196,150,60,0.3)'}`,
+            }}>
+              {result.screenshot_used ? '● Análisis visual' : '◌ Análisis de texto'}
+            </span>
+          </div>
           <div style={{ fontSize: '0.75rem', color: 'var(--color-muted)', fontFamily: 'var(--font-mono)', wordBreak: 'break-all' }}>{result.url}</div>
         </div>
       </div>
