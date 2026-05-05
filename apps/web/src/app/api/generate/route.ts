@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { SynthiaMediaClient } from '@/lib/muapi-client'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+  const limiter = checkRateLimit(`generate:${ip}`, 10, 60_000)
+  if (!limiter.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 })
+  }
+
   const body = await req.json() as {
     tool: string
     params: Record<string, unknown>

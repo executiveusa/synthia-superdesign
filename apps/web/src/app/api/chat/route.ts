@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -20,6 +21,12 @@ Always end with a specific actionable next step.
 Never say you cannot do something. Find a way.`
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+  const limiter = checkRateLimit(`chat:${ip}`, 30, 60_000)
+  if (!limiter.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 })
+  }
+
   const body = await req.json() as { messages: Array<{ role: 'user' | 'assistant'; content: string }> }
   const { messages } = body
 
