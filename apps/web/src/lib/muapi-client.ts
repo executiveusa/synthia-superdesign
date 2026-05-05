@@ -1,14 +1,18 @@
 const BASE = process.env.MUAPI_BASE_URL || 'https://api.muapi.ai';
+const MAX_POLL_ITERATIONS = 150; // 5 minutes max
 
 async function pollResult(id: string, key: string): Promise<string> {
-  for (let i = 0; i < 900; i++) {
-    await new Promise(r => setTimeout(r, 2000));
+  for (let i = 0; i < MAX_POLL_ITERATIONS; i++) {
+    // Exponential backoff: 2s, 3s, 4s, ... capped at 10s
+    const delay = Math.min(2000 + i * 500, 10000);
+    await new Promise(r => setTimeout(r, delay));
     const r = await fetch(`${BASE}/api/v1/status/${id}`, { headers: { 'x-api-key': key } });
-    const d = await r.json();
-    if (d.status === 'completed' && d.output) return d.output as string;
+    if (!r.ok) throw new Error(`muapi service unavailable, retry in 60s (status ${r.status})`);
+    const d = await r.json() as { status: string; output?: string; error?: string };
+    if (d.status === 'completed' && d.output) return d.output;
     if (d.status === 'failed') throw new Error(d.error || 'Generation failed');
   }
-  throw new Error('Timed out');
+  throw new Error('Generación superó el tiempo máximo de 5 minutos. Intenta con un prompt más simple.');
 }
 
 async function submit(endpoint: string, payload: Record<string, unknown>, key: string): Promise<string> {
@@ -17,13 +21,30 @@ async function submit(endpoint: string, payload: Record<string, unknown>, key: s
     headers: { 'Content-Type': 'application/json', 'x-api-key': key },
     body: JSON.stringify(payload),
   });
-  if (!r.ok) throw new Error(`muapi ${r.status}`);
-  const d = await r.json();
-  return pollResult(d.request_id || d.id, key);
+  if (r.status === 401) throw new Error('Llave de muapi inválida. Verifica tu llave en Configuración.');
+  if (r.status === 422) throw new Error('Modelo o parámetros no soportados. Verifica la configuración del estudio.');
+  if (r.status >= 500) throw new Error('Servicio de muapi no disponible. Intenta de nuevo en 60 segundos.');
+  if (!r.ok) throw new Error(`Error de muapi: HTTP ${r.status}`);
+  const d = await r.json() as { request_id?: string; id?: string };
+  const jobId = d.request_id || d.id;
+  if (!jobId) throw new Error('muapi no devolvió un ID de trabajo. La API puede haber cambiado.');
+  return pollResult(jobId, key);
 }
 
 export class SynthiaMediaClient {
   constructor(private key: string) {}
+
+  async validateConnection(): Promise<boolean> {
+    try {
+      const r = await fetch(`${BASE}/api/v1/models`, {
+        headers: { 'x-api-key': this.key },
+        signal: AbortSignal.timeout(5000),
+      });
+      return r.ok || r.status === 404; // 404 means endpoint exists but path differs — key is valid
+    } catch {
+      return false;
+    }
+  }
 
   image(params: { model: string; prompt: string; aspect_ratio?: string; image_url?: string }) {
     return submit(params.model, params, this.key);
