@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
 import { getTier, TIER_LIMITS } from '@/lib/tier'
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -29,6 +30,18 @@ const CHAT_LIMITS: Record<string, number> = {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'anon'
+  const rl = rateLimit(`${ip}:chat`, RATE_LIMITS.chat.maxRequests, RATE_LIMITS.chat.windowMs)
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: 'rate_limited', message: 'Demasiadas solicitudes. Intenta en un momento.', retry_after_ms: rl.resetAt - Date.now() },
+      {
+        status: 429,
+        headers: { 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': String(rl.resetAt) },
+      }
+    )
+  }
+
   const body = await req.json() as { messages: Array<{ role: 'user' | 'assistant'; content: string }> }
   const { messages } = body
 
@@ -48,7 +61,7 @@ export async function POST(req: NextRequest) {
     }
   } catch { /* non-blocking — proceed even if tier check fails */ }
 
-  void TIER_LIMITS // ensure import used
+  void TIER_LIMITS
 
   const stream = await anthropic.messages.stream({
     model: 'claude-sonnet-4-20250514',
@@ -68,6 +81,12 @@ export async function POST(req: NextRequest) {
         ctrl.close()
       },
     }),
-    { headers: { 'Content-Type': 'text/plain; charset=utf-8' } }
+    {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'X-RateLimit-Remaining': String(rl.remaining),
+        'X-RateLimit-Reset': String(rl.resetAt),
+      },
+    }
   )
 }

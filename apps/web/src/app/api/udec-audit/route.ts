@@ -1,5 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const AXES = [
   'Typography', 'Color Harmony', 'Visual Hierarchy', 'Spacing',
@@ -20,6 +21,15 @@ Return JSON only:
 }`
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'anon'
+  const rl = rateLimit(`${ip}:udec_audit`, RATE_LIMITS.udec_audit.maxRequests, RATE_LIMITS.udec_audit.windowMs)
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: 'rate_limited', message: 'Demasiadas solicitudes. Intenta en un momento.', retry_after_ms: rl.resetAt - Date.now() },
+      { status: 429, headers: { 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': String(rl.resetAt) } }
+    )
+  }
+
   const { url } = await req.json() as { url: string }
 
   if (!url) return NextResponse.json({ error: 'URL required' }, { status: 400 })

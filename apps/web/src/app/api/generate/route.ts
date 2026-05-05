@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { SynthiaMediaClient } from '@/lib/muapi-client'
 import { checkLimit, recordGeneration } from '@/lib/tier'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const VIDEO_TOOLS = new Set(['video', 'lipsync'])
 
@@ -12,6 +13,15 @@ export async function POST(req: NextRequest) {
     muapiKey?: string
   }
   const { tool, params, muapiKey } = body
+
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'anon'
+  const rl = rateLimit(`${ip}:generate`, RATE_LIMITS.generate.maxRequests, RATE_LIMITS.generate.windowMs)
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: 'rate_limited', message: 'Demasiadas solicitudes. Intenta en un momento.', retry_after_ms: rl.resetAt - Date.now() },
+      { status: 429, headers: { 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': String(rl.resetAt) } }
+    )
+  }
 
   // Identify user for metering
   let userId: string | null = null
