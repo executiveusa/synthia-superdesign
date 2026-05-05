@@ -1,4 +1,5 @@
 import type { SecondBrainEntry } from '@/lib/data-import'
+import { createClient } from '@/lib/supabase/client'
 
 const DB_NAME = 'synthia-second-brain'
 const DB_VERSION = 1
@@ -87,3 +88,82 @@ export async function deleteEntry(id: string): Promise<void> {
     tx.onerror = () => reject(tx.error)
   })
 }
+
+// ── Cloud sync ───────────────────────────────────────────────
+
+export async function syncToCloud(userId: string): Promise<{ synced: number; errors: number }> {
+  const supabase = createClient()
+  const entries = await getAllEntries()
+  let synced = 0
+  let errors = 0
+
+  const BATCH = 50
+  for (let i = 0; i < entries.length; i += BATCH) {
+    const batch = entries.slice(i, i + BATCH).map(e => ({
+      id: e.id,
+      user_id: userId,
+      type: e.type,
+      title: e.title,
+      content: e.content,
+      source: e.source,
+      tags: e.tags,
+      is_public: false,
+      created_at: e.created_at,
+      updated_at: e.updated_at,
+    }))
+    const { error } = await supabase.from('brain_entries').upsert(batch, { onConflict: 'id' })
+    if (error) { errors += batch.length } else { synced += batch.length }
+  }
+
+  return { synced, errors }
+}
+
+export async function syncFromCloud(userId: string): Promise<{ loaded: number }> {
+  const supabase = createClient()
+  const local = await getAllEntries()
+  const newestLocal = local.reduce((max, e) => e.updated_at > max ? e.updated_at : max, '1970-01-01T00:00:00Z')
+
+  const { data, error } = await supabase
+    .from('brain_entries')
+    .select('*')
+    .eq('user_id', userId)
+    .gt('updated_at', newestLocal)
+    .order('updated_at', { ascending: true })
+
+  if (error || !data?.length) return { loaded: 0 }
+
+  const remoteEntries: SecondBrainEntry[] = data.map(r => ({
+    id: r.id as string,
+    type: r.type as SecondBrainEntry['type'],
+    title: r.title as string,
+    content: r.content as string,
+    source: r.source as string,
+    tags: (r.tags as string[]) || [],
+    created_at: r.created_at as string,
+    updated_at: r.updated_at as string,
+  }))
+
+  await saveBatch(remoteEntries)
+  return { loaded: remoteEntries.length }
+}
+
+let syncTimer: ReturnType<typeof setInterval> | null = null
+
+export function startAutoSync(userId: string, intervalMs = 30000): () => void {
+  if (syncTimer) clearInterval(syncTimer)
+
+  const run = async () => {
+    try {
+      await syncToCloud(userId)
+      await syncFromCloud(userId)
+    } catch { /* silent — sync is best-effort */ }
+  }
+
+  run()
+  syncTimer = setInterval(run, intervalMs)
+
+  return () => {
+    if (syncTimer) { clearInterval(syncTimer); syncTimer = null }
+  }
+}
+
