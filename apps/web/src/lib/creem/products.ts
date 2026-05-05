@@ -95,6 +95,9 @@ export const PRODUCTS: SynthiaProduct[] = [
 ]
 
 export function creemCheckoutUrl(productId: string, email?: string): string {
+  if (!productId) {
+    throw new Error('Missing Creem product ID. Set CREEM_STARTER_ID, CREEM_PRO_ID, and CREEM_OPERATOR_ID.')
+  }
   const url = new URL(`https://www.creem.io/payment/${productId}`)
   if (email) url.searchParams.set('prefill_email', email)
   return url.toString()

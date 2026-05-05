@@ -42,6 +42,32 @@ export async function POST(req: NextRequest) {
       siteContent = `URL: ${url}\nCould not fetch page content.`
     }
 
+    const screenshotKey = process.env.SCREENSHOTONE_API_KEY
+    if (screenshotKey) {
+      try {
+        const shotUrl = new URL('https://api.screenshotone.com/take')
+        shotUrl.searchParams.set('access_key', screenshotKey)
+        shotUrl.searchParams.set('url', url)
+        shotUrl.searchParams.set('format', 'jpg')
+        shotUrl.searchParams.set('viewport_width', '1440')
+        shotUrl.searchParams.set('viewport_height', '2200')
+        shotUrl.searchParams.set('device_scale_factor', '1')
+        shotUrl.searchParams.set('full_page', 'true')
+        const shotRes = await fetch(shotUrl.toString(), { signal: AbortSignal.timeout(15_000) })
+        if (shotRes.ok) {
+          const bytes = await shotRes.arrayBuffer()
+          const base64 = Buffer.from(bytes).toString('base64')
+          siteContent += `\nScreenshot captured: yes\nScreenshot base64 (truncated): ${base64.slice(0, 6000)}`
+        } else {
+          siteContent += '\nScreenshot captured: no (provider error)'
+        }
+      } catch {
+        siteContent += '\nScreenshot captured: no (request failed)'
+      }
+    } else {
+      siteContent += '\nScreenshot captured: no (SCREENSHOTONE_API_KEY missing)'
+    }
+
     const res = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1024,

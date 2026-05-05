@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { hasRequiredTier, type UserTier } from '@/lib/access-control'
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -35,6 +36,25 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.redirect(new URL('/auth', request.url))
+
+  const gatedRoutes: Array<{ prefix: string; tier: UserTier }> = [
+    { prefix: '/studios/image', tier: 'starter' },
+    { prefix: '/studios/workflow', tier: 'starter' },
+    { prefix: '/studios/lipsync', tier: 'starter' },
+    { prefix: '/studios/video', tier: 'pro' },
+    { prefix: '/studios/cinema', tier: 'pro' },
+    { prefix: '/operator', tier: 'operator' },
+  ]
+  const matched = gatedRoutes.find((r) => pathname.startsWith(r.prefix))
+  if (matched) {
+    const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
+    if (!hasRequiredTier(profile?.tier, matched.tier)) {
+      const target = new URL('/pricing', request.url)
+      target.searchParams.set('required_tier', matched.tier)
+      target.searchParams.set('next', pathname)
+      return NextResponse.redirect(target)
+    }
+  }
   return response
 }
 
