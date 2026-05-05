@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Mono, Lato } from 'next/font/google'
 import './globals.css'
 import { validateServerEnv } from '@/lib/env'
+import { ToastProvider } from '@/components/ui/Toast'
 
 validateServerEnv()
 
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${playfair.variable} ${dmMono.variable} ${lato.variable}`}
       style={{ background: 'var(--color-dark)' }}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <ToastProvider />
+      </body>
     </html>
   )
 }

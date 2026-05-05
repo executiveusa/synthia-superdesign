@@ -5,6 +5,7 @@ import Sidebar from '@/components/chat/Sidebar'
 import ChatMain from '@/components/chat/ChatMain'
 import ContextPanel from '@/components/chat/ContextPanel'
 import { useChat } from '@/hooks/useChat'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export default function ChatPage() {
   const { messages, isStreaming, send, clearConversation, conversationId, loadConversation, generationHistory } = useChat()
@@ -26,14 +27,16 @@ export default function ChatPage() {
         />
       </div>
 
-      <ChatMain
-        messages={messages}
-        isStreaming={isStreaming}
-        onSend={handleSend}
-        onClear={clearConversation}
-        inputValue={inputValue}
-        onInputChange={setInputValue}
-      />
+      <ErrorBoundary>
+        <ChatMain
+          messages={messages}
+          isStreaming={isStreaming}
+          onSend={handleSend}
+          onClear={clearConversation}
+          inputValue={inputValue}
+          onInputChange={setInputValue}
+        />
+      </ErrorBoundary>
 
       {/* Context panel — hidden on mobile */}
       <div style={{ display: 'flex' }} className="chat-context">
