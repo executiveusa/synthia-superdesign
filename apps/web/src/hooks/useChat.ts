@@ -104,7 +104,7 @@ export function useChat() {
           const toolCall = JSON.parse(trimmed) as { tool: string; params: Record<string, unknown>; query?: string }
           if (toolCall.tool) {
             const muapiKey = typeof window !== 'undefined'
-              ? JSON.parse(localStorage.getItem('synthia_provider_keys') || '{}').muapi || ''
+              ? (await import('@/lib/key-manager').then(m => m.getKey('muapi'))) || ''
               : ''
 
             const genRes = await fetch('/api/generate', {

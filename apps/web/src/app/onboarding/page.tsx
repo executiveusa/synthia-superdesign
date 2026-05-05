@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { PROVIDERS, saveKey, getKey } from '@/lib/key-manager'
+import { PROVIDERS, saveKey } from '@/lib/key-manager'
 import { autoParseExport, conversationToEntry } from '@/lib/data-import'
 import type { ConversationEntry } from '@/lib/data-import'
 import { saveBatch } from '@/lib/second-brain/store'
@@ -23,12 +23,12 @@ export default function OnboardingPage() {
   const [importing, setImporting] = useState(false)
   const router = useRouter()
 
-  function handleSaveKey(id: string) {
-    saveKey(id, keyValues[id] || '')
+  async function handleSaveKey(id: string) {
+    await saveKey(id, keyValues[id] || '')
     setKeySaved(prev => ({ ...prev, [id]: true }))
   }
 
-  const muapiSaved = !!getKey('muapi') || keySaved['muapi']
+  const muapiSaved = !!keySaved['muapi']
 
   async function handleFile(file: File) {
     setImporting(true)
@@ -81,11 +81,11 @@ export default function OnboardingPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '2rem' }}>
               {PROVIDERS.map(provider => (
-                <div key={provider.id} style={{ background: 'var(--color-surface)', border: `1px solid ${keySaved[provider.id] || getKey(provider.id) ? 'var(--color-accent)' : 'var(--color-border)'}`, borderRadius: '10px', padding: '1rem' }}>
+                <div key={provider.id} style={{ background: 'var(--color-surface)', border: `1px solid ${keySaved[provider.id] || false ? 'var(--color-accent)' : 'var(--color-border)'}`, borderRadius: '10px', padding: '1rem' }}>
                   <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text)', marginBottom: '0.125rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     {provider.label}
                     {provider.required && <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: 'var(--color-primary)', background: 'rgba(196,150,60,0.15)', padding: '0.1rem 0.4rem', borderRadius: '3px' }}>REQUERIDO ★</span>}
-                    {(keySaved[provider.id] || getKey(provider.id)) && <span style={{ color: 'var(--color-accent)', fontSize: '0.875rem' }}>✓</span>}
+                    {(keySaved[provider.id] || false) && <span style={{ color: 'var(--color-accent)', fontSize: '0.875rem' }}>✓</span>}
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                     <input
