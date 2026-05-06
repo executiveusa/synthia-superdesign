@@ -17,6 +17,7 @@ from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+from hermes_gateway import BriefRequest, HermesOrchestrator
 
 # ── Auth ──────────────────────────────────────────────────────────────────────
 
@@ -52,6 +53,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+hermes = HermesOrchestrator()
 
 
 # ── Models ────────────────────────────────────────────────────────────────────
@@ -254,3 +257,11 @@ async def get_standards():
             {"id": "CRF", "name": "Craft & Detail",      "weight": 0.02},
         ],
     }
+
+
+@app.post("/v1/brief", dependencies=[Depends(require_auth)])
+async def submit_brief(brief: BriefRequest):
+    """Submit a brief and receive a HERMES routing decision."""
+    decision = await hermes.route_brief(brief)
+    status = "submitted" if decision.approval else "rejected"
+    return {"status": status, "decision": decision.model_dump()}
