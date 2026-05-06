@@ -9,19 +9,19 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
-    const loaded: Record<string, string> = {}
-    PROVIDERS.forEach(p => { loaded[p.id] = getKey(p.id) || '' })
-    setKeys(loaded)
+    Promise.all(PROVIDERS.map(async (provider) => [provider.id, await getKey(provider.id)] as const)).then((entries) => {
+      setKeys(Object.fromEntries(entries.map(([id, value]) => [id, value || ''])))
+    })
   }, [])
 
-  function handleSaveKey(id: string) {
-    saveKey(id, keys[id])
+  async function handleSaveKey(id: string) {
+    await saveKey(id, keys[id])
     setSaved(prev => ({ ...prev, [id]: true }))
     setTimeout(() => setSaved(prev => ({ ...prev, [id]: false })), 2000)
   }
 
-  function handleRemoveKey(id: string) {
-    removeKey(id)
+  async function handleRemoveKey(id: string) {
+    await removeKey(id)
     setKeys(prev => ({ ...prev, [id]: '' }))
   }
 

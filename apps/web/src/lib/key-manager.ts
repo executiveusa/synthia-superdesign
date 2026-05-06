@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'synthia_provider_keys'
+import { loadEncryptedKeys, saveEncryptedKeys } from '@/lib/crypto-keys'
 
 export interface ProviderDef {
   id: string
@@ -16,35 +16,43 @@ export const PROVIDERS: ProviderDef[] = [
   { id: 'elevenlabs', label: 'ElevenLabs (Voz / Voice)', placeholder: 'el-...', docs: 'https://elevenlabs.io', required: false },
 ]
 
-function load(): Record<string, string> {
-  if (typeof window === 'undefined') return {}
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
-  } catch {
-    return {}
-  }
+let masterPassword = 'synthia-default-master-password'
+let cache: Record<string, string> | null = null
+
+export function setMasterPassword(password: string): void {
+  masterPassword = password
+  cache = null
 }
 
-export function saveKey(provider: string, key: string): void {
-  const current = load()
+async function load(): Promise<Record<string, string>> {
+  if (cache) return cache
+  cache = await loadEncryptedKeys(masterPassword)
+  return cache
+}
+
+export async function saveKey(provider: string, key: string): Promise<void> {
+  const current = await load()
   current[provider] = key
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(current))
+  cache = current
+  await saveEncryptedKeys(current, masterPassword)
 }
 
-export function getKey(provider: string): string | null {
-  return load()[provider] || null
+export async function getKey(provider: string): Promise<string | null> {
+  const keys = await load()
+  return keys[provider] || null
 }
 
-export function getAllKeys(): Record<string, string> {
+export async function getAllKeys(): Promise<Record<string, string>> {
   return load()
 }
 
-export function removeKey(provider: string): void {
-  const current = load()
+export async function removeKey(provider: string): Promise<void> {
+  const current = await load()
   delete current[provider]
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(current))
+  cache = current
+  await saveEncryptedKeys(current, masterPassword)
 }
 
-export function hasRequiredKeys(): boolean {
-  return !!getKey('muapi')
+export async function hasRequiredKeys(): Promise<boolean> {
+  return !!(await getKey('muapi'))
 }

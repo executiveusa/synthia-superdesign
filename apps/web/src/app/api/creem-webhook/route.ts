@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { timingSafeEqual } from 'crypto'
 
 const PLEDGE_PCT = 0.02
 
 export async function POST(req: NextRequest) {
   const sig = req.headers.get('creem-signature')
-  if (!sig || sig !== process.env.CREEM_WEBHOOK_SECRET) {
+  const secret = process.env.CREEM_WEBHOOK_SECRET
+  if (!sig || !secret) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const sigBuffer = Buffer.from(sig)
+  const secretBuffer = Buffer.from(secret)
+  const isValid = sigBuffer.length === secretBuffer.length && timingSafeEqual(sigBuffer, secretBuffer)
+
+  if (!isValid) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
