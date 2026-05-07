@@ -1,13 +1,19 @@
 {
   "skillOverrides": {
-    "clone": "on"
+    "clone": "on",
+    "claude-video": "on"
   },
   "permissions": {
     "allow": [
-      "Bash(npx designlang *)"
+      "Bash(npx designlang *)",
+      "Bash(python3 ~/.claude/skills/claude-video/scripts/*)",
+      "Bash(yt-dlp *)",
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)"
     ]
   },
   "env": {
-    "DESIGNLANG_AUTO": "true"
+    "DESIGNLANG_AUTO": "true",
+    "CLAUDE_SKILL_DIR": "/root/.claude/skills/claude-video"
   }
 }
