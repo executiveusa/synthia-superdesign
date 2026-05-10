@@ -9,11 +9,27 @@
       "Bash(python3 ~/.claude/skills/claude-video/scripts/*)",
       "Bash(yt-dlp *)",
       "Bash(ffmpeg *)",
-      "Bash(ffprobe *)"
+      "Bash(ffprobe *)",
+      "Bash(jcodemunch-mcp *)",
+      "Bash(uvx jcodemunch-mcp *)"
     ]
   },
   "env": {
     "DESIGNLANG_AUTO": "true",
     "CLAUDE_SKILL_DIR": "/root/.claude/skills/claude-video"
+  },
+  "hooks": {
+    "WorktreeCreate": [
+      {
+        "matcher": "",
+        "hooks": [{"type": "command", "command": "jcodemunch-mcp hook-event create"}]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "matcher": "",
+        "hooks": [{"type": "command", "command": "jcodemunch-mcp hook-event remove"}]
+      }
+    ]
   }
 }
