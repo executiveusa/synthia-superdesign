@@ -1,13 +1,16 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { runVisualReasoningChain } from '@/lib/visual-reasoning'
 import type { VisualReasoningStep } from '@/lib/visual-reasoning'
-import { checkRateLimit } from '@/lib/rate-limit'
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
-  const limiter = checkRateLimit(`visual-reason:${ip}`, 8, 60_000)
-  if (!limiter.allowed) {
-    return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 })
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'anon'
+  const rl = rateLimit(`${ip}:visual_reason`, RATE_LIMITS.visual_reason.maxRequests, RATE_LIMITS.visual_reason.windowMs)
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: 'rate_limited', message: 'Demasiadas solicitudes. Intenta en un momento.', retry_after_ms: rl.resetAt - Date.now() },
+      { status: 429, headers: { 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': String(rl.resetAt) } }
+    )
   }
 
   const { prompt, muapiKey } = await req.json() as { prompt: string; muapiKey: string }

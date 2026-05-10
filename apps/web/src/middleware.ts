@@ -1,6 +1,18 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { hasRequiredTier, type UserTier } from '@/lib/access-control'
+
+// Routes that require starter tier or above
+const STARTER_ROUTES = [
+  '/studios/cinema',
+  '/studios/video',
+  '/studios/lipsync',
+  '/studios/marketing',
+  '/studios/workflow',
+  '/brain',
+]
+
+// Routes that require operator tier
+const OPERATOR_ROUTES = ['/operator']
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -13,6 +25,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/pricing') ||
     pathname.startsWith('/api/creem-webhook') ||
     pathname.startsWith('/api/whatsapp') ||
+    pathname.startsWith('/api/health') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/favicon') ||
     pathname.includes('.')
@@ -37,24 +50,28 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.redirect(new URL('/auth', request.url))
 
-  const gatedRoutes: Array<{ prefix: string; tier: UserTier }> = [
-    { prefix: '/studios/image', tier: 'starter' },
-    { prefix: '/studios/workflow', tier: 'starter' },
-    { prefix: '/studios/lipsync', tier: 'starter' },
-    { prefix: '/studios/video', tier: 'pro' },
-    { prefix: '/studios/cinema', tier: 'pro' },
-    { prefix: '/operator', tier: 'operator' },
-  ]
-  const matched = gatedRoutes.find((r) => pathname.startsWith(r.prefix))
-  if (matched) {
-    const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
-    if (!hasRequiredTier(profile?.tier, matched.tier)) {
-      const target = new URL('/pricing', request.url)
-      target.searchParams.set('required_tier', matched.tier)
-      target.searchParams.set('next', pathname)
-      return NextResponse.redirect(target)
+  // Tier enforcement for protected studio/operator routes
+  const needsStarterPlus = STARTER_ROUTES.some(r => pathname.startsWith(r))
+  const needsOperator = OPERATOR_ROUTES.some(r => pathname.startsWith(r))
+
+  if (needsStarterPlus || needsOperator) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('tier')
+      .eq('id', user.id)
+      .single()
+
+    const tier = (profile?.tier as string) || 'free'
+
+    if (needsOperator && tier !== 'operator') {
+      return NextResponse.redirect(new URL('/pricing?upgrade=operator', request.url))
+    }
+
+    if (needsStarterPlus && tier === 'free') {
+      return NextResponse.redirect(new URL('/pricing?upgrade=1', request.url))
     }
   }
+
   return response
 }
 

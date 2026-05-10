@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useToast } from '@/components/ui/Toast'
 
 export interface Message {
   id: string
@@ -21,6 +22,7 @@ interface GenerationHistoryItem {
 }
 
 export function useChat() {
+  const { toast } = useToast()
   const [messages, setMessages] = useState<Message[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [conversationId, setConversationId] = useState<string>('')
@@ -102,7 +104,7 @@ export function useChat() {
           const toolCall = JSON.parse(trimmed) as { tool: string; params: Record<string, unknown>; query?: string }
           if (toolCall.tool) {
             const muapiKey = typeof window !== 'undefined'
-              ? JSON.parse(localStorage.getItem('synthia_provider_keys') || '{}').muapi || ''
+              ? (await import('@/lib/key-manager').then(m => m.getKey('muapi'))) || ''
               : ''
 
             const genRes = await fetch('/api/generate', {
@@ -123,6 +125,10 @@ export function useChat() {
               finalMessages = [...newMessages.slice(0, -1), { ...assistantMsg, content: '✓ Generación completada' }, genMsg]
               setMessages(finalMessages)
               setGenerationHistory(prev => [{ url: genData.result_url, tool: genData.tool, timestamp: Date.now() }, ...prev].slice(0, 20))
+              toast({ message: '✓ Generación completada', type: 'success' })
+            } else {
+              const errData = await genRes.json() as { message?: string }
+              toast({ message: errData.message || 'Error al generar. Intenta de nuevo.', type: 'error', duration: 6000 })
             }
           }
         }
@@ -130,12 +136,14 @@ export function useChat() {
 
       saveMessages(finalMessages, conversationId)
     } catch (err) {
+      const errMsg = err instanceof Error ? err.message : 'Error desconocido'
       setMessages(prev => {
         const updated = [...prev]
         const last = updated[updated.length - 1]
-        if (last.role === 'assistant') last.content = `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
+        if (last.role === 'assistant') last.content = `Error: ${errMsg}`
         return updated
       })
+      toast({ message: `Error de conexión: ${errMsg}`, type: 'error', duration: 6000 })
     } finally {
       setIsStreaming(false)
     }

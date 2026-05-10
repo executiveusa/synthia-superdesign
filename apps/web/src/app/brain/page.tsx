@@ -3,9 +3,47 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { autoParseExport, conversationToEntry } from '@/lib/data-import'
 import type { SecondBrainEntry, ConversationEntry } from '@/lib/data-import'
-import { saveBatch, getAllEntries, searchEntries, getStats } from '@/lib/second-brain/store'
+import { saveBatch, getAllEntries, searchEntries, getStats, startAutoSync } from '@/lib/second-brain/store'
 import ImportInstructionsModal from '@/components/brain/ImportInstructionsModal'
 import EntrySlideOver from '@/components/brain/EntrySlideOver'
+import { createClient } from '@/lib/supabase/client'
+
+function useSyncStatus() {
+  const [lastSync, setLastSync] = useState<Date | null>(null)
+  const [tier, setTier] = useState<string>('free')
+
+  useEffect(() => {
+    const supabase = createClient()
+    let stopSync: (() => void) | null = null
+
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) return
+      const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
+      const userTier = (profile?.tier as string) || 'free'
+      setTier(userTier)
+
+      if (userTier !== 'free') {
+        stopSync = startAutoSync(user.id, 30000)
+        setLastSync(new Date())
+        const interval = setInterval(() => setLastSync(new Date()), 30000)
+        return () => clearInterval(interval)
+      }
+    })
+
+    return () => { stopSync?.() }
+  }, [])
+
+  return { lastSync, tier }
+}
+
+function formatSyncTime(date: Date | null): string {
+  if (!date) return ''
+  const secs = Math.floor((Date.now() - date.getTime()) / 1000)
+  if (secs < 10) return 'Ahora mismo'
+  if (secs < 60) return `Hace ${secs}s`
+  const mins = Math.floor(secs / 60)
+  return `Hace ${mins} min`
+}
 
 export default function BrainPage() {
   const [entries, setEntries] = useState<SecondBrainEntry[]>([])
@@ -18,6 +56,7 @@ export default function BrainPage() {
   const [showModal, setShowModal] = useState<'chatgpt' | 'claude' | 'notion' | null>(null)
   const [selectedEntry, setSelectedEntry] = useState<SecondBrainEntry | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
+  const { lastSync, tier } = useSyncStatus()
 
   const loadData = useCallback(async () => {
     const [all, s] = await Promise.all([getAllEntries(), getStats()])
@@ -189,6 +228,30 @@ export default function BrainPage() {
           onDelete={id => { setEntries(prev => prev.filter(e => e.id !== id)); setSelectedEntry(null) }}
         />
       )}
+
+      {/* Sync status footer */}
+      <div style={{
+        position: 'fixed',
+        bottom: '1rem',
+        left: '1rem',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.625rem',
+        color: 'var(--color-muted)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.375rem',
+      }}>
+        {tier === 'free' ? (
+          <a href="/pricing?upgrade=1" style={{ color: '#c4963c', textDecoration: 'none' }}>
+            ↑ Sincronización en la nube disponible en Starter →
+          </a>
+        ) : lastSync ? (
+          <>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#5a7a52', display: 'inline-block' }} />
+            Sincronizado {formatSyncTime(lastSync)}
+          </>
+        ) : null}
+      </div>
     </div>
   )
 }
