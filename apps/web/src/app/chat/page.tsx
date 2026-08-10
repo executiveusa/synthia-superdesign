@@ -1,15 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import Sidebar from '@/components/chat/Sidebar'
 import ChatMain from '@/components/chat/ChatMain'
 import ContextPanel from '@/components/chat/ContextPanel'
 import { useChat } from '@/hooks/useChat'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export default function ChatPage() {
-  const { messages, isStreaming, send, clearConversation, conversationId, loadConversation, generationHistory } = useChat()
+  const { messages, isStreaming, send, clearConversation, generationHistory } = useChat()
   const [inputValue, setInputValue] = useState('')
+  const [showGraph, setShowGraph] = useState(false)
 
   function handleSend(content: string) {
     setInputValue('')
@@ -17,37 +17,40 @@ export default function ChatPage() {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100dvh', background: 'var(--color-dark)', overflow: 'hidden' }}>
-      {/* Sidebar — hidden on mobile */}
-      <div style={{ display: 'flex' }} className="chat-sidebar">
-        <Sidebar
-          conversationId={conversationId}
-          onNewConversation={clearConversation}
-          onSelectConversation={loadConversation}
-        />
+    <main className="synthia-workspace">
+      <div className="synthia-topbar">
+        <a className="synthia-brand" href="/" aria-label="Synthia home">
+          <span className="synthia-brand-mark">S</span>
+          <span>SYNTHIA</span>
+        </a>
+        <div className="synthia-topbar-actions">
+          <button className="synthia-quiet-button" onClick={clearConversation}>New</button>
+          <button
+            className={`synthia-mode-button ${showGraph ? 'is-active' : ''}`}
+            onClick={() => setShowGraph(v => !v)}
+            aria-pressed={showGraph}
+          >
+            {showGraph ? 'Conversation' : 'Sphere view'}
+          </button>
+        </div>
       </div>
 
       <ErrorBoundary>
-        <ChatMain
-          messages={messages}
-          isStreaming={isStreaming}
-          onSend={handleSend}
-          onClear={clearConversation}
-          inputValue={inputValue}
-          onInputChange={setInputValue}
-        />
+        <section className="synthia-stage">
+          {showGraph ? (
+            <ContextPanel isGenerating={isStreaming} history={generationHistory} immersive />
+          ) : (
+            <ChatMain
+              messages={messages}
+              isStreaming={isStreaming}
+              onSend={handleSend}
+              onClear={clearConversation}
+              inputValue={inputValue}
+              onInputChange={setInputValue}
+            />
+          )}
+        </section>
       </ErrorBoundary>
-
-      {/* Context panel — hidden on mobile */}
-      <div style={{ display: 'flex' }} className="chat-context">
-        <ContextPanel isGenerating={isStreaming} history={generationHistory} />
-      </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .chat-sidebar, .chat-context { display: none !important; }
-        }
-      `}</style>
-    </div>
+    </main>
   )
 }
