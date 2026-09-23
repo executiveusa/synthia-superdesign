@@ -1,4 +1,4 @@
-# Land the Plane™ v1.0 — Workflow 09
+# Land the Plane™ v1.1 — Workflow 09
 # Record bead savepoints on every push to main.
 # Auto-tags if commit message contains bead(N):
 #   git commit -m "bead(7): complete user authentication flow"
@@ -9,7 +9,6 @@ name: Bead Checkpoint
 on:
   push:
     branches: [main]
-  push_tag:
     tags:
       - 'bead-*'
 
