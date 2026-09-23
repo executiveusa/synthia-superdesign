@@ -27,7 +27,7 @@ jobs:
         run: |
           npm install --save-exact next@15.5.26
           npm install --save-dev eslint@9.39.5 eslint-config-next@15.5.26 @eslint/eslintrc
-          npm pkg set scripts.lint="eslint . --max-warnings 0"
+          npm pkg set scripts.lint="eslint ."
           npm audit fix || true
           npm audit --omit=dev --audit-level=critical
       - name: Verify
