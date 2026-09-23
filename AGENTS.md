@@ -29,3 +29,18 @@ type: feat | fix | style | refactor | docs | test | chore
 ## Verification
 After each phase: npm run build must pass, npm run lint must pass.
 After phases 2-10: manually confirm the primary route renders at localhost:3000.
+
+
+## Generated-brand visual independence
+The Synthia palette, typography, and product chrome above govern **Synthia itself**. They are not default aesthetics for client brands, generated websites, campaigns, apps, or unrelated products.
+
+For any generated or redesigned brand surface, read `skills/visual-independence-governor/SKILL.md` before visual implementation.
+
+Non-negotiable generated-work laws:
+- consistency belongs inside a brand, not across unrelated brands;
+- preserve quality standards, not Synthia's appearance;
+- derive a project-specific Visual World Brief before visual BUILD;
+- do not export Synthia's palette, fonts, hero structure, spacing personality, component skin, or motion language unless the target brand independently justifies them;
+- compare against nearby portfolio work and reject recolored/reworded duplicates;
+- ADHD-friendly clarity means low cognitive friction, not mandatory minimalism;
+- reuse engineering primitives, not brand costume.
