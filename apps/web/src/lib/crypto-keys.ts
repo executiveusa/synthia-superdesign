@@ -18,11 +18,15 @@ function base64ToBytes(value: string): Uint8Array {
   return bytes
 }
 
+function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
+  return new Uint8Array(bytes).buffer
+}
+
 async function deriveAesKey(masterPassword: string, salt: Uint8Array): Promise<CryptoKey> {
   const passwordBytes = new TextEncoder().encode(masterPassword)
   const baseKey = await crypto.subtle.importKey('raw', passwordBytes, 'PBKDF2', false, ['deriveKey'])
   return crypto.subtle.deriveKey(
-    { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+    { name: 'PBKDF2', salt: toArrayBuffer(salt), iterations: 100000, hash: 'SHA-256' },
     baseKey,
     { name: 'AES-GCM', length: 256 },
     false,
@@ -44,7 +48,7 @@ export async function saveEncryptedKeys(keysObj: Record<string, string>, masterP
   const key = await deriveAesKey(masterPassword, salt)
   const iv = crypto.getRandomValues(new Uint8Array(12))
   const payload = new TextEncoder().encode(JSON.stringify(keysObj))
-  const encrypted = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, payload)
+  const encrypted = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: toArrayBuffer(iv) }, key, payload)
   localStorage.setItem(STORAGE_KEY, `${bytesToBase64(iv)}.${bytesToBase64(new Uint8Array(encrypted))}`)
 }
 
@@ -58,9 +62,9 @@ export async function loadEncryptedKeys(masterPassword: string): Promise<Record<
     const salt = getOrCreateSalt()
     const key = await deriveAesKey(masterPassword, salt)
     const decrypted = await crypto.subtle.decrypt(
-      { name: 'AES-GCM', iv: base64ToBytes(ivB64) },
+      { name: 'AES-GCM', iv: toArrayBuffer(base64ToBytes(ivB64)) },
       key,
-      base64ToBytes(cipherB64)
+      toArrayBuffer(base64ToBytes(cipherB64))
     )
     return JSON.parse(new TextDecoder().decode(decrypted))
   } catch {
