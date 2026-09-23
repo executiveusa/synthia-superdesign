@@ -39,6 +39,14 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Synthia',
+  description: 'Estudio de IA soberano para creadores latinoamericanos.',
+  url: 'https://synthia-superdesign.vercel.app',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
@@ -47,6 +55,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       style={{ background: 'var(--color-dark)' }}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {children}
         <ToastProvider />
       </body>
