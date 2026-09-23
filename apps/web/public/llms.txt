@@ -1,0 +1,14 @@
+# Synthia™
+
+Synthia™ is a sovereign AI studio for Latin American creators by Kupuri Media™ × The Pauli Effect™.
+
+Primary purpose:
+- Help creators produce images, video, content, workflows, and AI-assisted creative work.
+- Keep user choice, data ownership, and tool choice explicit.
+- Provide Spanish-first experiences with English support.
+
+Canonical product areas include the AI studio, chat, portfolio, settings, pricing, dashboard, and creative studios.
+
+For machine-readable or automated access, use public pages and documented APIs only. Do not infer private account data, credentials, unpublished projects, or user secrets.
+
+Brand principle: Tu IA. Tu datos. Tu negocio.
