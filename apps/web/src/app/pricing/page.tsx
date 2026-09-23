@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import Link from 'next/link'
 import { PRODUCTS, creemCheckoutUrl } from '@/lib/creem/products'
 import { createClient } from '@/lib/supabase/client'
 
@@ -54,13 +55,13 @@ export default function PricingPage() {
     <div style={{ minHeight: '100dvh', background: 'var(--color-dark)', color: 'var(--color-text)', fontFamily: 'var(--font-body)' }}>
       {/* Nav */}
       <nav style={{ padding: '1rem 2rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
           <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.5rem', color: 'var(--color-primary)' }}>S</span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.625rem', color: 'var(--color-muted)', letterSpacing: '0.15em' }}>SYNTHIA™</span>
-        </a>
-        <a href="/chat" style={{ padding: '0.5rem 1rem', background: 'var(--color-primary)', color: 'var(--color-dark)', borderRadius: '6px', fontSize: '0.875rem', fontWeight: 700, textDecoration: 'none' }}>
+        </Link>
+        <Link href="/chat" style={{ padding: '0.5rem 1rem', background: 'var(--color-primary)', color: 'var(--color-dark)', borderRadius: '6px', fontSize: '0.875rem', fontWeight: 700, textDecoration: 'none' }}>
           {userEmail ? 'Mi estudio →' : 'Entrar →'}
-        </a>
+        </Link>
       </nav>
 
       {/* Hero */}
