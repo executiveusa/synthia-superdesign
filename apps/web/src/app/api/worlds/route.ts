@@ -57,7 +57,13 @@ export async function GET() {
     repo: 'https://github.com/nv-tlabs/lyra',
   }
 
-  const allOk = Object.values(results).some((r: any) => r.ok)
+  const allOk = Object.values(results).some(
+    (result) =>
+      typeof result === 'object' &&
+      result !== null &&
+      'ok' in result &&
+      (result as { ok?: unknown }).ok === true
+  )
   return NextResponse.json({ status: allOk ? 'ok' : 'degraded', providers: results })
 }
 

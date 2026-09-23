@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -40,7 +41,7 @@ export default function Nav() {
       }}
     >
       {/* Wordmark */}
-      <a
+      <Link
         href="/"
         style={{
           fontFamily: 'var(--font-cormorant)',
@@ -53,7 +54,7 @@ export default function Nav() {
         }}
       >
         CYNTHIA
-      </a>
+      </Link>
 
       {/* Desktop nav */}
       <div
@@ -81,7 +82,7 @@ export default function Nav() {
             {item}
           </a>
         ))}
-        <a
+        <Link
           href="/dashboard"
           style={{
             display: 'inline-flex',
@@ -114,7 +115,7 @@ export default function Nav() {
             <rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.1"/>
           </svg>
           Studio OS
-        </a>
+        </Link>
         <a
           href="#audit"
           style={{
@@ -184,13 +185,13 @@ export default function Nav() {
               {item}
             </a>
           ))}
-          <a
+          <Link
             href="/dashboard"
             onClick={() => setMenuOpen(false)}
             style={{ color: '#c9a96e', textDecoration: 'none', fontSize: '0.9375rem', letterSpacing: '0.06em' }}
           >
             Studio OS →
-          </a>
+          </Link>
           <a
             href="#audit"
             onClick={() => setMenuOpen(false)}

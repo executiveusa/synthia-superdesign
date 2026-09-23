@@ -85,12 +85,12 @@ export async function GET() {
       latestVersion: meta.latest_version?.id ?? null,
       visibility: meta.visibility ?? 'public',
     })
-  } catch (e: any) {
+  } catch (e: unknown) {
     return NextResponse.json({
       status: 'error',
       provider: 'replicate',
       model: SEEDANCE_MODEL,
-      error: String(e?.message ?? e),
+      error: e instanceof Error ? e.message : String(e),
     }, { status: 500 })
   }
 }
@@ -156,10 +156,15 @@ export async function POST(req: NextRequest) {
       prompt,
       input,
     }, { status: 201 })
-  } catch (e: any) {
+  } catch (e: unknown) {
+    const failure =
+      typeof e === 'object' && e !== null
+        ? (e as { detail?: unknown; status?: unknown })
+        : {}
+
     return NextResponse.json(
-      { error: 'Seedance generation failed', detail: e?.detail ?? String(e) },
-      { status: e?.status ?? 500 }
+      { error: 'Seedance generation failed', detail: failure.detail ?? String(e) },
+      { status: typeof failure.status === 'number' ? failure.status : 500 }
     )
   }
 }
