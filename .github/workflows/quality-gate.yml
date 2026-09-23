@@ -105,14 +105,14 @@ jobs:
           echo "✅ llms.txt: $(wc -c < apps/web/public/llms.txt) bytes"
       - name: AI bots allowed in robots.ts
         run: |
-          ROBOTS="apps/web/app/[locale]/robots.ts"
+          ROBOTS="apps/web/src/app/robots.ts"
           grep -q "GPTBot"        "$ROBOTS" || { echo "❌ GPTBot missing from robots.ts";        exit 1; }
           grep -q "ClaudeBot"     "$ROBOTS" || { echo "❌ ClaudeBot missing from robots.ts";     exit 1; }
           grep -q "PerplexityBot" "$ROBOTS" || { echo "❌ PerplexityBot missing from robots.ts"; exit 1; }
           echo "✅ All AI bots allowed"
       - name: JSON-LD in layout
         run: |
-          grep -q "application/ld+json" "apps/web/app/[locale]/layout.tsx" \
+          grep -q "application/ld+json" "apps/web/src/app/layout.tsx" \
             || { echo "❌ JSON-LD missing from layout.tsx"; exit 1; }
           echo "✅ JSON-LD present"
 
