@@ -1,0 +1,43 @@
+name: Repair web dependencies
+
+on:
+  push:
+    branches: [fix/restore-web-build]
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/restore-web-build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install lint tooling and apply compatible security fixes
+        run: |
+          npm install --save-dev eslint@^9 eslint-config-next@^15
+          npm audit fix
+      - name: Verify
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run build
+      - name: Commit repaired manifests
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/web/package.json apps/web/package-lock.json
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(web): repair dependency set"
+          git push origin HEAD:fix/restore-web-build
