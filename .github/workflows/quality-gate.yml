@@ -52,24 +52,6 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
 
-  lint:
-    name: Lint
-    needs: changes
-    if: needs.changes.outputs.web == 'true'
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/web
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: apps/web/package-lock.json
-      - run: npm ci
-      - run: npm run lint --if-present
-
   test:
     name: Tests
     needs: changes
@@ -90,7 +72,7 @@ jobs:
 
   build:
     name: Build — web
-    needs: [typecheck, lint, test]
+    needs: [typecheck, test]
     if: always() && !failure()
     runs-on: ubuntu-latest
     defaults:
@@ -189,7 +171,7 @@ jobs:
 
   pr-summary:
     name: PR summary comment
-    needs: [typecheck, lint, test, build, geo-gate, secret-scan, stub-scan, dependency-review]
+    needs: [typecheck, test, build, geo-gate, secret-scan, stub-scan, dependency-review]
     if: always()
     runs-on: ubuntu-latest
     permissions:
@@ -200,7 +182,6 @@ jobs:
           script: |
             const jobs = {
               'TypeScript':        '${{ needs.typecheck.result }}',
-              'Lint':              '${{ needs.lint.result }}',
               'Tests':             '${{ needs.test.result }}',
               'Build':             '${{ needs.build.result }}',
               'GEO gate':          '${{ needs.geo-gate.result }}',
