@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import ChatMain from '@/components/chat/ChatMain'
 import ContextPanel from '@/components/chat/ContextPanel'
 import { useChat } from '@/hooks/useChat'
@@ -19,10 +20,10 @@ export default function ChatPage() {
   return (
     <main className="synthia-workspace">
       <div className="synthia-topbar">
-        <a className="synthia-brand" href="/" aria-label="Synthia home">
+        <Link className="synthia-brand" href="/" aria-label="Synthia home">
           <span className="synthia-brand-mark">S</span>
           <span>SYNTHIA</span>
-        </a>
+        </Link>
         <div className="synthia-topbar-actions">
           <button className="synthia-quiet-button" onClick={clearConversation}>New</button>
           <button
