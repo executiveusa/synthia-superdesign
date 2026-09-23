@@ -26,11 +26,14 @@ jobs:
       - name: Upgrade to patched Next.js Maintenance LTS
         run: |
           npm install --save-exact next@15.5.26
+          npm install --save-dev eslint@9.39.5 eslint-config-next@15.5.26 @eslint/eslintrc @eslint/js
+          npm pkg set scripts.lint="eslint . --max-warnings 0"
           npm audit fix || true
           npm audit --omit=dev --audit-level=critical
       - name: Verify
         run: |
           npm run typecheck
+          npm run lint
           npm run build
       - name: Commit repaired manifests
         working-directory: .
