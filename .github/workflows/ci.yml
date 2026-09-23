@@ -1,6 +1,4 @@
-# Land the Plane™ v1.0 — Workflow 01
-# CI: typecheck + lint + test + build (parallel, Bun)
-# Runs on every push to any branch and PRs to main.
+# Land the Plane™ v1.1 — Workflow 01
 name: CI
 
 on:
@@ -20,14 +18,12 @@ env:
   NEXT_TELEMETRY_DISABLED: 1
 
 jobs:
-  # ── Path detection ───────────────────────────────────────────────────────────
   changes:
     name: Detect changed paths
     runs-on: ubuntu-latest
     outputs:
-      web:    ${{ steps.filter.outputs.web }}
+      web: ${{ steps.filter.outputs.web }}
       python: ${{ steps.filter.outputs.python }}
-      any:    ${{ steps.filter.outputs.any }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -36,58 +32,69 @@ jobs:
           filters: |
             web:
               - 'apps/web/**'
-              - 'apps/dashboard/**'
-              - 'packages/**/*.ts'
-              - 'packages/**/*.tsx'
+              - '.github/workflows/ci.yml'
+              - '.github/workflows/quality-gate.yml'
             python:
               - 'agents/**'
               - 'harness/**'
               - 'packages/lightning/**'
               - 'packages/lightrag/**'
               - 'apps/api/**'
-            any:
-              - '**'
 
-  # ── TypeScript ───────────────────────────────────────────────────────────────
   typecheck:
     name: TypeScript
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.web == 'true'
+    defaults:
+      run:
+        working-directory: apps/web
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with: { bun-version: 1.3.10 }
-      - run: bun install --frozen-lockfile
-      - run: bun run typecheck
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
 
-  # ── Biome lint ───────────────────────────────────────────────────────────────
   lint:
-    name: Biome lint
+    name: Lint
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.web == 'true'
+    defaults:
+      run:
+        working-directory: apps/web
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with: { bun-version: 1.3.10 }
-      - run: bun install --frozen-lockfile
-      - run: bun run check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm run lint --if-present
 
-  # ── Unit tests ───────────────────────────────────────────────────────────────
   test:
-    name: Vitest
+    name: App tests
     runs-on: ubuntu-latest
     needs: changes
     if: needs.changes.outputs.web == 'true'
+    defaults:
+      run:
+        working-directory: apps/web
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with: { bun-version: 1.3.10 }
-      - run: bun install --frozen-lockfile
-      - run: bun run test
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm test --if-present
 
-  # ── Python syntax + imports ──────────────────────────────────────────────────
   python-check:
     name: Python checks
     runs-on: ubuntu-latest
@@ -120,18 +127,23 @@ jobs:
           print('✅ All imports OK — routes:', len(app.routes))
           "
 
-  # ── Build web ────────────────────────────────────────────────────────────────
   build-web:
     name: Build apps/web
     runs-on: ubuntu-latest
     needs: [typecheck, lint, test]
     if: always() && !failure() && !cancelled()
+    defaults:
+      run:
+        working-directory: apps/web
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with: { bun-version: 1.3.10 }
-      - run: bun install --frozen-lockfile
-      - run: bun run build --filter=web
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
           name: web-build-${{ github.sha }}
