@@ -107,11 +107,11 @@ No. Run the loop. LENA catches it. MARCO briefs it. RALPHY fixes it. In order.
 
 ---
 
-## TABLET V — THE RALPHY LOOP IS THE ONLY LOOP
+## TABLET V — THE RALPHY LOOP IS THE LOOP FOR CREATIVE WORK
 
 > "Build × 3 → Score → Gate → Brief → Repeat. No shortcuts."
 
-The studio runs on one loop. Every project, every time.
+Creative work (taste decides, more than one good result exists) runs this loop every time. Mechanical work (one right answer) builds the one smallest approach and still gets an independent check.
 
 ```
 HERMES reads brief → SCOUT researches (if needed) → RALPHY builds × 3 →
